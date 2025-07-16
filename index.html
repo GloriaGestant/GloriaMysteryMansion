@@ -151,12 +151,15 @@
             background-color: rgba(42, 26, 74, 0.9);
             padding: 10px;
             border: 2px solid #b19cd9;
-            max-width: 90%;
+            max-width: 80%;
             text-align: center;
             display: none;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(177, 156, 217, 0.5);
             z-index: 5;
+            line-height: 1.6;
+            font-size: 16px;
+            animation: pulse 2s infinite;
         }
         
         #dialog-text {
@@ -268,9 +271,9 @@
         }
         
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(177, 156, 217, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(177, 156, 217, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(177, 156, 217, 0.5); }
         }
         
         #flash {
@@ -294,7 +297,7 @@
             height: 120px;
             z-index: 1;
             opacity: 0.7;
-            display: none; /* По умолчанию скрыты */
+            display: none;
         }
         
         #joystick {
@@ -330,7 +333,7 @@
             flex-direction: column;
             gap: 10px;
             z-index: 1;
-            display: none; /* По умолчанию скрыты */
+            display: none;
         }
         
         .action-btn {
@@ -445,6 +448,218 @@
                 font-size: 16px;
             }
         }
+        
+        /* Новые элементы интерфейса */
+        #room-indicator {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(42, 26, 74, 0.7);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 2;
+            display: none;
+        }
+        
+        #ability-cooldowns {
+            position: absolute;
+            bottom: 50px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 2;
+            display: none;
+        }
+        
+        .cooldown-indicator {
+            width: 80px;
+            height: 8px;
+            background-color: rgba(26, 10, 42, 0.7);
+            border: 1px solid #3d2a5f;
+            position: relative;
+        }
+        
+        .cooldown-fill {
+            height: 100%;
+            background-color: #b19cd9;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        
+        .cooldown-label {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            font-size: 10px;
+            color: #b19cd9;
+        }
+        
+        #mini-map {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(26, 10, 42, 0.5);
+            border: 1px solid #3d2a5f;
+            z-index: 2;
+            display: none;
+        }
+        
+        #mini-map-grid {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2px;
+            padding: 2px;
+        }
+        
+        .mini-map-room {
+            background-color: rgba(58, 42, 90, 0.3);
+            border: 1px solid #3d2a5f;
+            position: relative;
+        }
+        
+        .mini-map-room.active {
+            background-color: rgba(177, 156, 217, 0.3);
+            border-color: #b19cd9;
+        }
+        
+        .mini-map-room.visited {
+            background-color: rgba(100, 80, 140, 0.3);
+        }
+        
+        .mini-map-room.artifact {
+            position: relative;
+        }
+        
+        .mini-map-room.artifact::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background-color: #b19cd9;
+            border-radius: 50%;
+        }
+        
+        .mini-map-room.artifact.collected::after {
+            display: none;
+        }
+        
+        #sound-toggle {
+            position: absolute;
+            bottom: 10px;
+            right: 100px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(42, 26, 74, 0.7);
+            border: 1px solid #b19cd9;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Стили для финальной кат-сцены */
+        #ending-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            color: #b19cd9;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        
+        #ending-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #b19cd9;
+            animation: pulse 2s infinite;
+        }
+        
+        #ending-text {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        #ending-image {
+            width: 300px;
+            height: 300px;
+            margin: 20px 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%232a1a4a" stroke="%23b19cd9" stroke-width="2"/><path d="M30,40 Q50,20 70,40 Q80,60 50,80 Q20,60 30,40 Z" fill="%23b19cd9"/><circle cx="40" cy="40" r="5" fill="%232a1a4a"/><circle cx="60" cy="40" r="5" fill="%232a1a4a"/><path d="M40,60 Q50,70 60,60" fill="none" stroke="%232a1a4a" stroke-width="2"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 2s ease-out;
+        }
+        
+        #ending-image.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        #ending-button {
+            background-color: #2a1a4a;
+            color: #b19cd9;
+            border: 2px solid #b19cd9;
+            padding: 12px 30px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin-top: 30px;
+            font-size: 18px;
+            transition: all 0.3s;
+            border-radius: 5px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out 3s;
+        }
+        
+        #ending-button:hover {
+            background-color: #3d2a5f;
+            text-shadow: 0 0 5px #b19cd9;
+            box-shadow: 0 0 10px rgba(177, 156, 217, 0.5);
+        }
+        
+        #ending-button.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ending-paragraph {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: textReveal 1s forwards;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -456,6 +671,8 @@
             <div>Здоровье:</div>
             <div id="health-bar"><div id="health-fill"></div></div>
         </div>
+        
+        <div id="room-indicator">Комната: Прихожая</div>
         
         <div id="fear-label">СТРАХ</div>
         <div id="fear-bar"><div id="fear-fill"></div></div>
@@ -470,6 +687,21 @@
             <div class="inventory-item" data-item="portal">
                 <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='%23b19cd9' stroke-width='2'/><path d='M2,8 A6,6 0 0,1 14,8 A6,6 0 0,1 2,8' fill='%233d2a5f'/></svg>" alt="Портал">
             </div>
+        </div>
+        
+        <div id="ability-cooldowns">
+            <div class="cooldown-indicator">
+                <div class="cooldown-label">ТЕЛЕКИНЕЗ</div>
+                <div class="cooldown-fill" id="telekinesis-cooldown"></div>
+            </div>
+            <div class="cooldown-indicator">
+                <div class="cooldown-label">ПОРТАЛ</div>
+                <div class="cooldown-fill" id="portal-cooldown"></div>
+            </div>
+        </div>
+        
+        <div id="mini-map">
+            <div id="mini-map-grid"></div>
         </div>
         
         <div id="message-box"></div>
@@ -500,23 +732,56 @@
         
         <button id="restart-btn">РЕСТАРТ (R)</button>
         
+        <div id="sound-toggle">🔊</div>
+        
         <div id="flash"></div>
+
+        <!-- Финальная кат-сцена -->
+        <div id="ending-screen">
+            <div id="ending-title">КОНЕЦ ИСТОРИИ</div>
+            <div id="ending-text">
+                <div class="ending-paragraph" style="animation-delay: 0.5s">Глория расставляет артефакты по кругу в центре прихожей. Каждый начинает светиться мягким фиолетовым светом.</div>
+                <div class="ending-paragraph" style="animation-delay: 1s">Внезапно свет усиливается, и стены особняка начинают растворяться, обнажая воспоминания...</div>
+                <div class="ending-paragraph" style="animation-delay: 1.5s">Лаборатория. Клетки. Боль. Но также - побег, сопротивление, первое использование своих сил.</div>
+                <div class="ending-paragraph" style="animation-delay: 2s">Голос из прошлого: "Глория, ты была лучшим из наших экспериментов. Единственная, кто выжил..."</div>
+                <div class="ending-paragraph" style="animation-delay: 2.5s">Тени вокруг содрогаются, цепляясь за Глорию, но свет артефактов становится ярче.</div>
+                <div id="ending-image"></div>
+                <div class="ending-paragraph" style="animation-delay: 3s">Вспышка! Глория чувствует, как реальность вокруг меняется. Она видит дорогу домой - тусклый свет в конце туннеля.</div>
+                <div class="ending-paragraph" style="animation-delay: 3.5s">Последнее, что она слышит - голос особняка: "Ты вернешься... Они все возвращаются..."</div>
+                <div class="ending-paragraph" style="animation-delay: 4s">НОВАЯ ГЛАВА</div>
+                <div class="ending-paragraph" style="animation-delay: 4.5s">Глория открывает глаза. Она лежит на мягком ковре в знакомой комнате. За окном - привычный городской пейзаж.</div>
+                <div class="ending-paragraph" style="animation-delay: 5s">Но в зеркале она замечает что-то странное - ее глаза иногда мерцают тем же фиолетовым светом, что и артефакты...</div>
+            </div>
+            <button id="ending-button">ИГРАТЬ СНОВА</button>
+        </div>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-dark-ambient-tribal-1231.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="artifactSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="hurtSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVеLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-player-jumping-in-a-video-game-2043.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="enemySound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-creature-cry-of-hurt-2208.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="victorySound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-video-game-win-2016.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="portalSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-spell-669.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="telekinesisSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -537,6 +802,10 @@
         const flash = document.getElementById('flash');
         const restartBtn = document.getElementById('restart-btn');
         const controlsInfo = document.querySelector('.controls-info');
+        const roomIndicator = document.getElementById('room-indicator');
+        const miniMap = document.getElementById('mini-map');
+        const miniMapGrid = document.getElementById('mini-map-grid');
+        const soundToggle = document.getElementById('sound-toggle');
         
         // Мобильные элементы управления
         const joystick = document.getElementById('joystick');
@@ -545,6 +814,9 @@
         const portalBtn = document.getElementById('portal-btn');
         const mobileControls = document.getElementById('mobile-controls');
         const actionButtons = document.getElementById('action-buttons');
+        const abilityCooldowns = document.getElementById('ability-cooldowns');
+        const telekinesisCooldown = document.getElementById('telekinesis-cooldown');
+        const portalCooldown = document.getElementById('portal-cooldown');
         
         // Установка размеров canvas
         function resizeCanvas() {
@@ -558,7 +830,11 @@
         const artifactSound = document.getElementById('artifactSound');
         const hurtSound = document.getElementById('hurtSound');
         const enemySound = document.getElementById('enemySound');
+        const victorySound = document.getElementById('victorySound');
+        const portalSound = document.getElementById('portalSound');
+        const telekinesisSound = document.getElementById('telekinesisSound');
         
+        let soundEnabled = true;
         let gameRunning = false;
         let player = {
             x: 400,
@@ -577,7 +853,8 @@
             maxPortalCharges: 3,
             portalCooldown: 15000,
             lastPortalUse: 0,
-            dogEnemiesNearby: 0
+            dogEnemiesNearby: 0,
+            visitedRooms: new Set()
         };
         
         let artifacts = [];
@@ -592,6 +869,7 @@
         let darknessAlpha = 0.7;
         let lastFearIncrease = 0;
         let lastTelekinesisIncrease = 0;
+        let cooldownInterval;
         
         // Определение типа устройства
         let isMobile = false;
@@ -603,7 +881,8 @@
             ArrowLeft: false,
             ArrowRight: false,
             KeyT: false,
-            KeyP: false
+            KeyP: false,
+            KeyM: false
         };
         
         // Джойстик переменные (для мобильных)
@@ -625,15 +904,20 @@
             "Твоя кошачья природа дает тебе преимущества, но и делает уязвимой к определенным опасностям..."
         ];
         
+        const roomNames = [
+            "Прихожая", "Гостиная", "Библиотека", "Столовая",
+            "Кухня", "Кабинет", "Детская", "Чердак"
+        ];
+        
         const roomDescriptions = [
-            "Прихожая: Стены украшены портретами кошек с пустыми глазницами. Глория чувствует, как ее хвост непроизвольно вздыбливается.",
-            "Гостиная: Развалившееся кресло-качалка все еще движется. На полу - следы когтей, слишком большие для обычной кошки...",
-            "Библиотека: Книги с названиями 'История экспериментов' и 'Гибриды человека и животного'. Глорию бросает в дрожь.",
-            "Столовая: На столе - семь тарелок с чем-то, что когда-то было едой. На одной - ошейник с именем 'Мояо'...",
-            "Кухня: Запах гниющего мяса смешивается с ароматом валерьянки. Ножи висят на стене в идеальном порядке.",
-            "Кабинет: Стены испещрены чертежами неких существ. На столе - шприцы с неизвестной жидкостью. Глория чувствует, как учащается ее пульс.",
-            "Детская: Игрушечные собаки с горящими красными глазами. Колыбель качается, хотя в комнате нет ни малейшего ветерка...",
-            "Чердак: Здесь темнее всего. В углу - клетка с царапинами изнутри. Глория слышит тихое мяуканье, но источник звука найти не может."
+            "Стены украшены портретами кошек с пустыми глазницами. Глория чувствует, как ее хвост непроизвольно вздыбливается.",
+            "Развалившееся кресло-качалка все еще движется. На полу - следы когтей, слишком большие для обычной кошки...",
+            "Книги с названиями 'История экспериментов' и 'Гибриды человека и животного'. Глорию бросает в дрожь.",
+            "На столе - семь тарелок с чем-то, что когда-то было едой. На одной - ошейник с именем 'Мояо'...",
+            "Запах гниющего мяса смешивается с ароматом валерьянки. Ножи висят на стене в идеальном порядке.",
+            "Стены испещрены чертежами неких существ. На столе - шприцы с неизвестной жидкостью. Глория чувствует, как учащается ее пульс.",
+            "Игрушечные собаки с горящими красными глазами. Колыбель качается, хотя в комнате нет ни малейшего ветерка...",
+            "Здесь темнее всего. В углу - клетка с царапинами изнутри. Глория слышит тихое мяуканье, но источник звука найти не может."
         ];
         
         const enemyTypes = [
@@ -644,7 +928,8 @@
                 size: 20, 
                 color: '#3a1a4a', 
                 fear: 5,
-                trigger: "Приближается, шепча что-то о 'процедурах' и 'улучшениях'"
+                trigger: "Приближается, шепча что-то о 'процедурах' и 'улучшениях'",
+                sound: "https://assets.mixkit.co/sfx/preview/mixkit-creature-cry-of-hurt-2208.mp3"
             },
             { 
                 name: "Пес тьмы", 
@@ -653,7 +938,8 @@
                 size: 24, 
                 color: '#5a1a1a', 
                 fear: 15,
-                trigger: "Рычит и скалится, напоминая Глории о ее страхе перед собаками"
+                trigger: "Рычит и скалится, напоминая Глории о ее страхе перед собаками",
+                sound: "https://assets.mixkit.co/sfx/preview/mixkit-angry-dog-barking-35.mp3"
             },
             { 
                 name: "Шприцевая тень", 
@@ -662,7 +948,8 @@
                 size: 16, 
                 color: '#1a4a3a', 
                 fear: 20,
-                trigger: "Держит в руках огромный шприц, капающий странной жидкостью"
+                trigger: "Держит в руках огромный шприц, капающий странной жидкостью",
+                sound: "https://assets.mixkit.co/sfx/preview/mixkit-horror-needle-2669.mp3"
             }
         ];
         
@@ -671,6 +958,7 @@
             rooms = [];
             for (let i = 0; i < 8; i++) {
                 rooms.push({
+                    name: roomNames[i],
                     width: canvas.width,
                     height: canvas.height,
                     description: roomDescriptions[i],
@@ -694,9 +982,49 @@
             }
             
             currentRoom = 0;
+            player.visitedRooms.add(currentRoom);
             artifacts = rooms[currentRoom].artifacts;
             enemies = rooms[currentRoom].enemies;
+            updateRoomIndicator();
+            updateMiniMap();
             showMessage(rooms[currentRoom].description);
+        }
+        
+        // Обновление индикатора комнаты
+        function updateRoomIndicator() {
+            roomIndicator.textContent = `Комната: ${rooms[currentRoom].name}`;
+            roomIndicator.style.display = 'block';
+        }
+        
+        // Обновление мини-карты
+        function updateMiniMap() {
+            miniMapGrid.innerHTML = '';
+            
+            for (let i = 0; i < rooms.length; i++) {
+                const roomElement = document.createElement('div');
+                roomElement.className = 'mini-map-room';
+                
+                if (i === currentRoom) {
+                    roomElement.classList.add('active');
+                } else if (player.visitedRooms.has(i)) {
+                    roomElement.classList.add('visited');
+                }
+                
+                // Проверяем, есть ли в комнате не собранные артефакты
+                const hasArtifacts = rooms[i].artifacts.some(a => !a.collected);
+                if (hasArtifacts) {
+                    roomElement.classList.add('artifact');
+                }
+                
+                // Если артефакты собраны, добавляем класс collected
+                if (rooms[i].artifacts.every(a => a.collected)) {
+                    roomElement.classList.add('collected');
+                }
+                
+                miniMapGrid.appendChild(roomElement);
+            }
+            
+            miniMap.style.display = 'block';
         }
         
         // Смена комнаты
@@ -740,6 +1068,9 @@
                 return;
             }
             
+            // Добавляем комнату в посещенные
+            player.visitedRooms.add(currentRoom);
+            
             // Обновляем данные комнаты
             artifacts = rooms[currentRoom].artifacts;
             enemies = rooms[currentRoom].enemies;
@@ -748,6 +1079,10 @@
             player.fear += 10;
             if (player.fear > player.maxFear) player.fear = player.maxFear;
             updateFearBar();
+            
+            // Обновляем индикаторы
+            updateRoomIndicator();
+            updateMiniMap();
             
             // Показываем описание комнаты
             showMessage(rooms[currentRoom].description);
@@ -791,11 +1126,15 @@
                 type: type.type,
                 angle: Math.atan2(player.y - y, player.x - x),
                 active: true,
-                flashTimer: 0
+                flashTimer: 0,
+                sound: type.sound
             });
             
-            enemySound.currentTime = 0;
-            enemySound.play().catch(e => console.log("Audio play failed:", e));
+            if (soundEnabled) {
+                enemySound.src = type.sound;
+                enemySound.currentTime = 0;
+                enemySound.play().catch(e => console.log("Audio play failed:", e));
+            }
         }
         
         // Показать сообщение
@@ -858,6 +1197,21 @@
             telekenesisFillElement.style.width = player.telekinesis + '%';
         }
         
+        // Обновление индикаторов перезарядки
+        function updateCooldownIndicators() {
+            const now = Date.now();
+            
+            // Телекинез
+            const telekinesisTimeLeft = player.telekinesisCooldown - (now - player.lastTelekinesisUse);
+            const telekinesisPercent = Math.max(0, Math.min(100, 100 - (telekinesisTimeLeft / player.telekinesisCooldown * 100)));
+            telekinesisCooldown.style.width = telekinesisPercent + '%';
+            
+            // Портал
+            const portalTimeLeft = player.portalCooldown - (now - player.lastPortalUse);
+            const portalPercent = Math.max(0, Math.min(100, 100 - (portalTimeLeft / player.portalCooldown * 100)));
+            portalCooldown.style.width = portalPercent + '%';
+        }
+        
         // Использование телекинеза
         function useTelekinesis() {
             const now = Date.now();
@@ -886,6 +1240,11 @@
             updateTelekinesisBar();
             
             showMessage("Телекинез! Тени отшвырнуты прочь!", 1500);
+            
+            if (soundEnabled) {
+                telekinesisSound.currentTime = 0;
+                telekinesisSound.play().catch(e => console.log("Audio play failed:", e));
+            }
             
             flash.style.backgroundColor = "#b19cd9";
             flash.style.opacity = 0.3;
@@ -923,6 +1282,11 @@
             updateInventory();
             
             showMessage("Портал открыт! Глория перемещается в безопасное место.", 1500);
+            
+            if (soundEnabled) {
+                portalSound.currentTime = 0;
+                portalSound.play().catch(e => console.log("Audio play failed:", e));
+            }
             
             flash.style.backgroundColor = "#3d2a5f";
             flash.style.opacity = 0.5;
@@ -1008,6 +1372,12 @@
                     usePortal();
                     keys.KeyP = false;
                 }
+                
+                // Переключение мини-карты (M)
+                if (keys.KeyM) {
+                    miniMap.style.display = miniMap.style.display === 'none' ? 'block' : 'none';
+                    keys.KeyM = false;
+                }
             }
             
             // Границы игрока
@@ -1035,7 +1405,9 @@
                 const hints = [
                     "Где-то вдалеке слышится мяуканье... Может, это подсказка?",
                     "Кошачьи уши улавливают шепот: 'Ищи там, где темнее всего...'",
-                    "Нос учуял слабый запах валерьянки, исходящий от одной из стен..."
+                    "Нос учуял слабый запах валерьянки, исходящий от одной из стен...",
+                    "Воспоминание: 'Артефакты светятся фиолетовым... ищи свет в темноте'",
+                    "Инстинкты подсказывают: опасность рядом, когда хвост вздыбливается"
                 ];
                 showMessage(hints[Math.floor(Math.random() * hints.length)]);
             }
@@ -1106,13 +1478,18 @@
                     player.artifacts++;
                     artifactCountElement.textContent = player.artifacts;
                     
-                    artifactSound.currentTime = 0;
-                    artifactSound.play().catch(e => console.log("Audio play failed:", e));
+                    if (soundEnabled) {
+                        artifactSound.currentTime = 0;
+                        artifactSound.play().catch(e => console.log("Audio play failed:", e));
+                    }
                     
                     showMessage('Артефакт памяти найден! ' + player.artifacts + '/7', 2000);
                     
                     player.fear = Math.max(0, player.fear - 15);
                     updateFearBar();
+                    
+                    // Обновляем мини-карту
+                    updateMiniMap();
                     
                     if (player.artifacts === 7) {
                         showMessage('Вы собрали все артефакты! Вернитесь в прихожую, чтобы восстановить память.', 5000);
@@ -1123,16 +1500,18 @@
             // Проверка победы
             if (player.artifacts === 7 && currentRoom === 0 && 
                 checkCollision(player.x, player.y, player.size, 50, 50, 100)) {
-                showDialog([
-                    "Глория расставляет артефакты по кругу и закрывает глаза...",
-                    "Воспоминания нахлынули: лаборатория, эксперименты, побег...",
-                    "Тени особняка содрогаются, не желая отпускать свою жертву.",
-                    "Но память сильнее тьмы. Глория вспоминает заклинание перехода.",
-                    "Последнее, что она видит - как особняк рассыпается в пыль, освобождая всех своих пленников.",
-                    "КОНЕЦ"
-                ]);
+                // Останавливаем игру
                 gameRunning = false;
-                restartBtn.style.display = 'block';
+                
+                // Останавливаем музыку и проигрываем финальный звук
+                bgMusic.pause();
+                if (soundEnabled) {
+                    victorySound.volume = 0.5;
+                    victorySound.play().catch(e => console.log(e));
+                }
+                
+                // Показываем финальную кат-сцену
+                showEndingScene();
             }
             
             // Спавн врагов
@@ -1160,8 +1539,10 @@
                         player.health -= 5;
                         healthFillElement.style.width = player.health + '%';
                         
-                        hurtSound.currentTime = 0;
-                        hurtSound.play().catch(e => console.log("Audio play failed:", e));
+                        if (soundEnabled) {
+                            hurtSound.currentTime = 0;
+                            hurtSound.play().catch(e => console.log("Audio play failed:", e));
+                        }
                         
                         player.fear += enemy.fear;
                         updateFearBar();
@@ -1174,6 +1555,9 @@
                     }
                 }
             });
+            
+            // Обновляем индикаторы перезарядки
+            updateCooldownIndicators();
             
             // Отрисовка
             draw();
@@ -1538,6 +1922,22 @@
             });
         }
         
+        // Переключение звука
+        function setupSoundToggle() {
+            soundToggle.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                
+                if (soundEnabled) {
+                    soundToggle.textContent = '🔊';
+                    bgMusic.volume = 0.3;
+                    if (gameRunning) bgMusic.play().catch(e => console.log(e));
+                } else {
+                    soundToggle.textContent = '🔇';
+                    bgMusic.pause();
+                }
+            });
+        }
+        
         // Определение типа устройства и настройка управления
         function setupControls() {
             // Проверяем, является ли устройство мобильным
@@ -1547,6 +1947,7 @@
                 // Показываем мобильные элементы управления
                 mobileControls.style.display = 'block';
                 actionButtons.style.display = 'flex';
+                abilityCooldowns.style.display = 'flex';
                 
                 // Настраиваем джойстик и кнопки
                 setupJoystick();
@@ -1557,14 +1958,52 @@
             } else {
                 // Настраиваем управление с клавиатуры
                 setupKeyboardControls();
+                abilityCooldowns.style.display = 'flex';
                 
                 // Обновляем информацию об управлении
-                controlsInfo.textContent = "Управление: Стрелки - движение, T - телекинез, P - портал, R - перезапуск";
+                controlsInfo.textContent = "Управление: Стрелки - движение, T - телекинез, P - портал, M - мини-карта, R - перезапуск";
             }
+            
+            // Настраиваем переключение звука
+            setupSoundToggle();
+        }
+        
+        // Показать финальную кат-сцену
+        function showEndingScene() {
+            const endingScreen = document.getElementById('ending-screen');
+            endingScreen.style.display = 'flex';
+            
+            // Прячем остальные элементы интерфейса
+            document.getElementById('ui').style.display = 'none';
+            document.getElementById('inventory').style.display = 'none';
+            document.getElementById('fear-bar').style.display = 'none';
+            document.getElementById('telekenesis-bar').style.display = 'none';
+            document.getElementById('fear-label').style.display = 'none';
+            document.getElementById('telekenesis-label').style.display = 'none';
+            document.getElementById('room-indicator').style.display = 'none';
+            document.getElementById('mini-map').style.display = 'none';
+            
+            // Анимируем появление элементов
+            setTimeout(() => {
+                document.getElementById('ending-image').classList.add('show');
+            }, 2500);
+            
+            setTimeout(() => {
+                document.getElementById('ending-button').classList.add('show');
+            }, 3500);
+            
+            // Настраиваем кнопку "Играть снова"
+            document.getElementById('ending-button').addEventListener('click', () => {
+                endingScreen.style.display = 'none';
+                startGame();
+            });
         }
         
         // Запуск игры
         function startGame() {
+            // Скрываем финальную кат-сцену
+            document.getElementById('ending-screen').style.display = 'none';
+            
             // Установка размеров canvas
             resizeCanvas();
             
@@ -1585,7 +2024,8 @@
                 maxPortalCharges: 3,
                 portalCooldown: 15000,
                 lastPortalUse: 0,
-                dogEnemiesNearby: 0
+                dogEnemiesNearby: 0,
+                visitedRooms: new Set()
             };
             
             artifactCountElement.textContent = '0';
@@ -1603,13 +2043,20 @@
             startScreen.style.display = 'none';
             gameRunning = true;
             restartBtn.style.display = 'none';
+            restartBtn.textContent = "РЕСТАРТ (R)";
             
             updateInventory();
             
-            bgMusic.volume = 0.3;
-            bgMusic.play().catch(e => console.log("Audio play failed:", e));
+            if (soundEnabled) {
+                bgMusic.volume = 0.3;
+                bgMusic.play().catch(e => console.log("Audio play failed:", e));
+            }
             
             showDialog(story);
+            
+            // Запускаем обновление индикаторов перезарядки
+            clearInterval(cooldownInterval);
+            cooldownInterval = setInterval(updateCooldownIndicators, 100);
             
             update();
         }
