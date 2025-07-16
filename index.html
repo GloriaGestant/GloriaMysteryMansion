@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Темный особняк - Путешествие Глории (Мобильная версия)</title>
+    <title>Темный особняк - Путешествие Глории</title>
     <style>
         body {
             margin: 0;
@@ -285,6 +285,7 @@
             z-index: 20;
         }
         
+        /* Мобильные элементы управления */
         #mobile-controls {
             position: absolute;
             bottom: 20px;
@@ -293,6 +294,7 @@
             height: 120px;
             z-index: 1;
             opacity: 0.7;
+            display: none; /* По умолчанию скрыты */
         }
         
         #joystick {
@@ -328,6 +330,7 @@
             flex-direction: column;
             gap: 10px;
             z-index: 1;
+            display: none; /* По умолчанию скрыты */
         }
         
         .action-btn {
@@ -361,6 +364,77 @@
             font-size: 12px;
             z-index: 3;
             display: none;
+        }
+
+        /* Адаптивные стили для ПК */
+        @media (min-width: 768px) {
+            #game-container {
+                width: 800px;
+                height: 600px;
+            }
+            
+            #ui {
+                font-size: 16px;
+            }
+            
+            #health-bar {
+                width: 100px;
+                height: 10px;
+            }
+            
+            #message-box {
+                font-size: 18px;
+                padding: 15px 20px;
+            }
+            
+            #title {
+                font-size: 48px;
+                margin-bottom: 20px;
+                letter-spacing: 3px;
+            }
+            
+            #subtitle {
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+            
+            #controls {
+                font-size: 14px;
+                margin-top: 30px;
+            }
+            
+            button {
+                padding: 12px 30px;
+                margin: 10px;
+                font-size: 18px;
+            }
+            
+            #dialog-box {
+                padding: 15px;
+            }
+            
+            #dialog-text {
+                font-size: 16px;
+            }
+            
+            #inventory {
+                padding: 10px;
+            }
+            
+            .inventory-item {
+                width: 40px;
+                height: 40px;
+            }
+            
+            #fear-bar, #telekenesis-bar {
+                width: 100px;
+                height: 10px;
+            }
+            
+            #fear-label, #telekenesis-label {
+                font-size: 12px;
+                bottom: 25px;
+            }
         }
     </style>
 </head>
@@ -400,9 +474,10 @@
             <div id="title">ТАЙНА ГЛОРИИ</div>
             <div id="subtitle">После неудачного прыжка между мирами, Глория очнулась в странном особняке...<br>Ее кошачьи чувства сразу уловили что-то неладное - это место хранит секреты ее прошлого.<br>Найди 7 артефактов памяти, чтобы вспомнить путь домой.</div>
             <button id="start-button">НАЧАТЬ ИГРУ</button>
-            <div id="controls">Управление: Джойстик - движение, кнопки - способности</div>
+            <div id="controls" class="controls-info">Управление загружается...</div>
         </div>
         
+        <!-- Мобильные элементы управления -->
         <div id="mobile-controls">
             <div id="joystick">
                 <div id="joystick-knob"></div>
@@ -424,15 +499,15 @@
     </audio>
     
     <audio id="artifactSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
     
     <audio id="hurtSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
     
     <audio id="enemySound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
 
     <script>
@@ -452,12 +527,15 @@
         const inventoryItems = document.querySelectorAll('.inventory-item');
         const flash = document.getElementById('flash');
         const restartBtn = document.getElementById('restart-btn');
+        const controlsInfo = document.querySelector('.controls-info');
         
         // Мобильные элементы управления
         const joystick = document.getElementById('joystick');
         const joystickKnob = document.getElementById('joystick-knob');
         const telekinesisBtn = document.getElementById('telekinesis-btn');
         const portalBtn = document.getElementById('portal-btn');
+        const mobileControls = document.getElementById('mobile-controls');
+        const actionButtons = document.getElementById('action-buttons');
         
         // Установка размеров canvas
         function resizeCanvas() {
@@ -506,7 +584,20 @@
         let lastFearIncrease = 0;
         let lastTelekinesisIncrease = 0;
         
-        // Джойстик переменные
+        // Определение типа устройства
+        let isMobile = false;
+        
+        // Управление клавиатурой (для ПК)
+        let keys = {
+            ArrowUp: false,
+            ArrowDown: false,
+            ArrowLeft: false,
+            ArrowRight: false,
+            KeyT: false,
+            KeyP: false
+        };
+        
+        // Джойстик переменные (для мобильных)
         let joystickActive = false;
         let joystickCenterX = 0;
         let joystickCenterY = 0;
@@ -857,23 +948,56 @@
             
             gameTime++;
             
-            // Управление игроком через джойстик
-            if (joystickActive) {
-                const speedFactor = joystickDistance / 30;
-                player.x += Math.cos(joystickAngle) * player.speed * speedFactor;
-                player.y += Math.sin(joystickAngle) * player.speed * speedFactor;
-                
-                // Проверка смены комнаты
-                if (player.x <= player.size) {
+            // Управление игроком
+            if (isMobile) {
+                // Мобильное управление через джойстик
+                if (joystickActive) {
+                    const speedFactor = joystickDistance / 30;
+                    player.x += Math.cos(joystickAngle) * player.speed * speedFactor;
+                    player.y += Math.sin(joystickAngle) * player.speed * speedFactor;
+                    
+                    // Проверка смены комнаты
+                    if (player.x <= player.size) {
+                        changeRoom('left');
+                    } else if (player.x >= canvas.width - player.size) {
+                        changeRoom('right');
+                    }
+                    
+                    if (player.y <= player.size) {
+                        changeRoom('up');
+                    } else if (player.y >= canvas.height - player.size) {
+                        changeRoom('down');
+                    }
+                }
+            } else {
+                // Управление с клавиатуры
+                if (keys.ArrowUp) {
+                    player.y -= player.speed;
+                    changeRoom('up');
+                }
+                if (keys.ArrowDown) {
+                    player.y += player.speed;
+                    changeRoom('down');
+                }
+                if (keys.ArrowLeft) {
+                    player.x -= player.speed;
                     changeRoom('left');
-                } else if (player.x >= canvas.width - player.size) {
+                }
+                if (keys.ArrowRight) {
+                    player.x += player.speed;
                     changeRoom('right');
                 }
                 
-                if (player.y <= player.size) {
-                    changeRoom('up');
-                } else if (player.y >= canvas.height - player.size) {
-                    changeRoom('down');
+                // Использование телекинеза (T)
+                if (keys.KeyT && player.telekinesis >= 30 && Date.now() - player.lastTelekinesisUse > player.telekinesisCooldown) {
+                    useTelekinesis();
+                    keys.KeyT = false;
+                }
+                
+                // Использование портала (P)
+                if (keys.KeyP && player.portalCharges > 0 && Date.now() - player.lastPortalUse > player.portalCooldown) {
+                    usePortal();
+                    keys.KeyP = false;
                 }
             }
             
@@ -1127,7 +1251,7 @@
                     
                     // Особые детали для разных типов
                     if (enemy.type === "humanoid") {
-                        // Глаза
+                        // Глазы
                         ctx.fillStyle = '#f00';
                         ctx.beginPath();
                         ctx.arc(enemy.x - 4, enemy.y - 2, 2, 0, Math.PI * 2);
@@ -1218,7 +1342,7 @@
             ctx.lineTo(player.x + 4, player.y - 12);
             ctx.fill();
             
-            // Глаза
+            // Глазы
             const eyeColor = player.fear < 50 ? '#a1c9a7' : 
                             player.fear < 80 ? '#d1a9a9' : '#f99';
             
@@ -1289,7 +1413,7 @@
             ctx.stroke();
         }
         
-        // Управление джойстиком
+        // Управление джойстиком (для мобильных)
         function setupJoystick() {
             const joystickRect = joystick.getBoundingClientRect();
             joystickCenterX = joystickRect.left + joystickRect.width / 2;
@@ -1360,7 +1484,7 @@
             joystickKnob.style.transform = `translate(${joystickX}px, ${joystickY}px) translate(-50%, -50%)`;
         }
         
-        // Настройка кнопок действий
+        // Настройка кнопок действий (для мобильных)
         function setupActionButtons() {
             telekinesisBtn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
@@ -1381,9 +1505,53 @@
                 e.preventDefault();
                 usePortal();
             });
+        }
+        
+        // Управление клавиатурой (для ПК)
+        function setupKeyboardControls() {
+            window.addEventListener('keydown', (e) => {
+                if (e.key in keys) {
+                    keys[e.key] = true;
+                    e.preventDefault();
+                }
+                
+                // Перезапуск игры
+                if (e.key.toLowerCase() === 'r' && !gameRunning) {
+                    startGame();
+                }
+            });
             
-            // Для тестирования на ПК
-            restartBtn.addEventListener('click', startGame);
+            window.addEventListener('keyup', (e) => {
+                if (e.key in keys) {
+                    keys[e.key] = false;
+                    e.preventDefault();
+                }
+            });
+        }
+        
+        // Определение типа устройства и настройка управления
+        function setupControls() {
+            // Проверяем, является ли устройство мобильным
+            isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Показываем мобильные элементы управления
+                mobileControls.style.display = 'block';
+                actionButtons.style.display = 'flex';
+                
+                // Настраиваем джойстик и кнопки
+                setupJoystick();
+                setupActionButtons();
+                
+                // Обновляем информацию об управлении
+                controlsInfo.textContent = "Управление: Джойстик - движение, кнопки - способности";
+            } else {
+                // Настраиваем управление с клавиатуры
+                setupKeyboardControls();
+                
+                // Обновляем информацию об управлении
+                controlsInfo.textContent = "Управление: Стрелки - движение, T - телекинез, P - портал, R - перезапуск";
+            }
         }
         
         // Запуск игры
@@ -1439,8 +1607,8 @@
         
         // Инициализация игры
         function init() {
-            setupJoystick();
-            setupActionButtons();
+            // Настраиваем управление в зависимости от устройства
+            setupControls();
             
             // Кнопка "Далее" в диалоге
             dialogNext.addEventListener('click', nextDialog);
