@@ -359,11 +359,12 @@
             background-color: rgba(42, 26, 74, 0.7);
             border: 1px solid #b19cd9;
             color: #b19cd9;
-            padding: 5px 10px;
+            padding: 8px 15px;
             border-radius: 5px;
-            font-size: 12px;
+            font-size: 14px;
             z-index: 3;
             display: none;
+            touch-action: manipulation;
         }
 
         /* Адаптивные стили для ПК */
@@ -436,6 +437,14 @@
                 bottom: 25px;
             }
         }
+
+        /* Стили для мобильных устройств */
+        @media (max-width: 767px) {
+            #restart-btn {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -503,7 +512,7 @@
     </audio>
     
     <audio id="hurtSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVеLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбLVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
     
     <audio id="enemySound">
@@ -1612,9 +1621,24 @@
             
             // Кнопка "Далее" в диалоге
             dialogNext.addEventListener('click', nextDialog);
+            dialogNext.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                nextDialog();
+            });
             
             // Кнопка старта
             startButton.addEventListener('click', startGame);
+            startButton.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                startGame();
+            });
+            
+            // Кнопка рестарта
+            restartBtn.addEventListener('click', startGame);
+            restartBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                startGame();
+            });
             
             // Обработчик изменения размера окна
             window.addEventListener('resize', resizeCanvas);
