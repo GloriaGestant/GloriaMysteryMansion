@@ -298,15 +298,28 @@
             left: 20px;
             width: 150px;
             height: 150px;
-            z-index: 1;
+            z-index: 10;
             display: none;
+            touch-action: none;
+        }
+        
+        #joystick-base {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(42, 26, 74, 0.3);
+            border-radius: 50%;
+            border: 2px solid rgba(177, 156, 217, 0.5);
+            left: 0;
+            top: 0;
+            transform: translate(-50%, -50%);
         }
         
         #joystick {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background-color: rgba(42, 26, 74, 0.5);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(42, 26, 74, 0.7);
             border-radius: 50%;
             border: 2px solid #b19cd9;
             left: 0;
@@ -322,13 +335,14 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            z-index: 1;
+            z-index: 10;
             display: none;
+            touch-action: none;
         }
         
         .action-btn {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background-color: rgba(42, 26, 74, 0.5);
             border-radius: 50%;
             border: 2px solid #b19cd9;
@@ -339,9 +353,12 @@
             font-size: 14px;
             text-align: center;
             touch-action: none;
+            user-select: none;
+            transition: transform 0.1s;
         }
         
-        .action-btn:active {
+        .action-btn.pressed {
+            transform: scale(0.9);
             background-color: rgba(58, 42, 90, 0.7);
         }
         
@@ -401,6 +418,22 @@
                 top: auto;
                 bottom: 80px;
                 flex-direction: row;
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            #telekenesis-label, #fear-label {
+                font-size: 10px;
+            }
+            
+            #telekenesis-bar, #fear-bar {
+                bottom: 5px;
+                height: 8px;
+            }
+            
+            #telekenesis-label, #fear-label {
+                bottom: 15px;
             }
         }
         
@@ -419,14 +452,52 @@
             }
             
             .action-btn {
-                width: 50px;
-                height: 50px;
+                width: 60px;
+                height: 60px;
                 font-size: 12px;
             }
             
             #joystick {
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            #joystick-base {
+                width: 70px;
+                height: 70px;
+            }
+            
+            #mobile-controls {
+                left: 15px;
+                bottom: 15px;
+            }
+            
+            #action-buttons {
+                right: 15px;
+                bottom: 15px;
+                gap: 8px;
+            }
+            
+            #message-box {
+                font-size: 16px;
+                bottom: 100px;
+                max-width: 90%;
+            }
+        }
+        
+        @media (max-height: 500px) {
+            #inventory {
+                top: 10px;
+                bottom: auto;
+                flex-direction: column;
+                right: 10px;
+                left: auto;
+                transform: none;
+            }
+            
+            #message-box {
+                bottom: 70px;
+                max-width: 70%;
             }
         }
     </style>
@@ -472,15 +543,16 @@
         
         <!-- Мобильные элементы управления -->
         <div id="mobile-controls">
+            <div id="joystick-base"></div>
             <div id="joystick"></div>
         </div>
         
         <div id="action-buttons">
-            <div class="action-btn" id="telekinesis-btn">ТЕЛЕКИНЕЗ (T)</div>
-            <div class="action-btn" id="portal-btn">ПОРТАЛ (P)</div>
+            <div class="action-btn" id="telekinesis-btn">ТЕЛЕКИНЕЗ</div>
+            <div class="action-btn" id="portal-btn">ПОРТАЛ</div>
         </div>
         
-        <button id="restart-btn">ПЕРЕЗАПУСТИТЬ (R)</button>
+        <button id="restart-btn">ПЕРЕЗАПУСТИТЬ</button>
         
         <div id="flash"></div>
     </div>
@@ -490,7 +562,7 @@
     </audio>
     
     <audio id="artifactSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVundABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
     
     <audio id="hurtSound">
@@ -498,7 +570,7 @@
     </audio>
     
     <audio id="enemySound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
 
     <script>
@@ -521,6 +593,7 @@
         
         // Мобильные элементы
         const joystick = document.getElementById('joystick');
+        const joystickBase = document.getElementById('joystick-base');
         const telekinesisBtn = document.getElementById('telekinesis-btn');
         const portalBtn = document.getElementById('portal-btn');
         
@@ -571,6 +644,7 @@
         let joystickX = 0;
         let joystickY = 0;
         let joystickRadius = 50;
+        let activeTouchId = null;
         
         // История и диалоги
         const story = [
@@ -651,62 +725,101 @@
         // Инициализация мобильного управления
         function initMobileControls() {
             // Джойстик
-            joystick.addEventListener('touchstart', handleJoystickStart);
-            joystick.addEventListener('touchmove', handleJoystickMove);
-            joystick.addEventListener('touchend', handleJoystickEnd);
+            joystickBase.addEventListener('touchstart', handleJoystickStart, { passive: false });
+            document.addEventListener('touchmove', handleJoystickMove, { passive: false });
+            document.addEventListener('touchend', handleJoystickEnd, { passive: false });
+            document.addEventListener('touchcancel', handleJoystickEnd, { passive: false });
             
             // Кнопки действий
-            telekinesisBtn.addEventListener('touchstart', () => {
+            telekinesisBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                telekinesisBtn.classList.add('pressed');
                 keys.KeyT = true;
                 if (gameRunning && player.telekinesis >= 30 && Date.now() - player.lastTelekinesisUse > player.telekinesisCooldown) {
                     useTelekinesis();
                 }
-            });
+            }, { passive: false });
             
-            telekinesisBtn.addEventListener('touchend', () => {
+            telekinesisBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                telekinesisBtn.classList.remove('pressed');
                 keys.KeyT = false;
-            });
+            }, { passive: false });
             
-            portalBtn.addEventListener('touchstart', () => {
+            portalBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                portalBtn.classList.add('pressed');
                 keys.KeyP = true;
                 if (gameRunning && player.portalCharges > 0 && Date.now() - player.lastPortalUse > player.portalCooldown) {
                     usePortal();
                 }
-            });
+            }, { passive: false });
             
-            portalBtn.addEventListener('touchend', () => {
+            portalBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                portalBtn.classList.remove('pressed');
                 keys.KeyP = false;
-            });
+            }, { passive: false });
             
             // Кнопка перезапуска
             restartBtn.addEventListener('click', startGame);
         }
-        
-        // Обработка начала касания джойстика
+
         function handleJoystickStart(e) {
+            if (joystickActive) return;
+            
             e.preventDefault();
             joystickActive = true;
             const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
+            activeTouchId = touch.identifier;
             
-            joystickStartX = touch.clientX - rect.left;
-            joystickStartY = touch.clientY - rect.top;
+            const rect = joystickBase.getBoundingClientRect();
+            joystickStartX = rect.left + rect.width/2;
+            joystickStartY = rect.top + rect.height/2;
             
-            joystick.style.left = joystickStartX + 'px';
-            joystick.style.top = joystickStartY + 'px';
+            // Обновляем позицию джойстика
+            updateJoystickPosition(touch.clientX, touch.clientY);
         }
-        
-        // Обработка движения джойстика
+
         function handleJoystickMove(e) {
             if (!joystickActive) return;
+            
             e.preventDefault();
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
+            let touch = null;
             
-            const touchX = touch.clientX - rect.left;
-            const touchY = touch.clientY - rect.top;
+            // Находим нужное касание по идентификатору
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                if (e.changedTouches[i].identifier === activeTouchId) {
+                    touch = e.changedTouches[i];
+                    break;
+                }
+            }
             
-            // Вычисляем расстояние от начальной точки
+            if (!touch) return;
+            
+            // Обновляем позицию джойстика
+            updateJoystickPosition(touch.clientX, touch.clientY);
+        }
+
+        function handleJoystickEnd(e) {
+            if (!joystickActive) return;
+            
+            e.preventDefault();
+            joystickActive = false;
+            joystickX = 0;
+            joystickY = 0;
+            joystick.style.transform = 'translate(0, 0)';
+            activeTouchId = null;
+            
+            // Сбрасываем управление
+            keys.ArrowUp = false;
+            keys.ArrowDown = false;
+            keys.ArrowLeft = false;
+            keys.ArrowRight = false;
+        }
+
+        function updateJoystickPosition(touchX, touchY) {
+            // Вычисляем расстояние от центра джойстика
             const dx = touchX - joystickStartX;
             const dy = touchY - joystickStartY;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -727,21 +840,7 @@
             // Обновляем управление
             updateMobileControls();
         }
-        
-        // Обработка окончания касания джойстика
-        function handleJoystickEnd(e) {
-            joystickActive = false;
-            joystickX = 0;
-            joystickY = 0;
-            joystick.style.transform = 'translate(0, 0)';
-            
-            // Сбрасываем управление
-            keys.ArrowUp = false;
-            keys.ArrowDown = false;
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
-        }
-        
+
         // Обновление управления на основе джойстика
         function updateMobileControls() {
             // Определяем направление
