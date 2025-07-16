@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Темный особняк - Путешествие Глории</title>
+    <title>Темный особняк - Путешествие Глории (Мобильная версия)</title>
     <style>
         body {
             margin: 0;
@@ -17,7 +17,7 @@
             font-family: 'Courier New', monospace;
             overflow: hidden;
             user-select: none;
-            touch-action: none;
+            touch-action: manipulation;
         }
         
         #game-container {
@@ -39,7 +39,7 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            font-size: 16px;
+            font-size: 14px;
             background-color: rgba(42, 26, 74, 0.7);
             padding: 5px 10px;
             border-radius: 5px;
@@ -47,8 +47,8 @@
         }
         
         #health-bar {
-            width: 100px;
-            height: 10px;
+            width: 80px;
+            height: 8px;
             background-color: #2a1a1a;
             margin-top: 5px;
             border: 1px solid #3d2a2a;
@@ -67,12 +67,12 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(42, 26, 74, 0.9);
-            padding: 15px 20px;
+            padding: 10px 15px;
             border: 2px solid #b19cd9;
-            max-width: 80%;
+            max-width: 90%;
             text-align: center;
             display: none;
-            font-size: 18px;
+            font-size: 14px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(177, 156, 217, 0.5);
             z-index: 2;
@@ -91,34 +91,34 @@
             align-items: center;
             z-index: 10;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="black"/><path d="M30,20 L50,10 L70,20 L65,50 L75,70 L50,80 L25,70 L35,50 Z" fill="%232a1a4a"/><circle cx="40" cy="40" r="5" fill="%23b19cd9"/><circle cx="60" cy="40" r="5" fill="%23b19cd9"/></svg>');
-            background-size: 200px;
+            background-size: 150px;
             background-repeat: repeat;
         }
         
         #title {
-            font-size: 48px;
+            font-size: 28px;
             color: #b19cd9;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-shadow: 0 0 10px #b19cd9, 0 0 20px #b19cd9;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             animation: pulse 2s infinite;
             text-align: center;
             padding: 0 10px;
         }
         
         #subtitle {
-            font-size: 18px;
+            font-size: 14px;
             color: #aaa;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             max-width: 90%;
-            line-height: 1.5;
+            line-height: 1.4;
             padding: 0 10px;
         }
         
         #controls {
-            margin-top: 30px;
-            font-size: 14px;
+            margin-top: 20px;
+            font-size: 12px;
             color: #777;
             text-align: center;
             max-width: 90%;
@@ -128,11 +128,11 @@
             background-color: #2a1a4a;
             color: #b19cd9;
             border: 2px solid #b19cd9;
-            padding: 12px 30px;
+            padding: 10px 25px;
             font-family: 'Courier New', monospace;
             cursor: pointer;
-            margin: 10px;
-            font-size: 18px;
+            margin: 8px;
+            font-size: 16px;
             transition: all 0.3s;
             border-radius: 5px;
         }
@@ -149,7 +149,7 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(42, 26, 74, 0.9);
-            padding: 15px;
+            padding: 10px;
             border: 2px solid #b19cd9;
             max-width: 90%;
             text-align: center;
@@ -161,7 +161,7 @@
         
         #dialog-text {
             margin-bottom: 10px;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.4;
         }
         
@@ -180,7 +180,7 @@
             top: 10px;
             right: 10px;
             background-color: rgba(42, 26, 74, 0.7);
-            padding: 10px;
+            padding: 8px;
             border-radius: 5px;
             display: flex;
             flex-direction: column;
@@ -189,8 +189,8 @@
         }
         
         .inventory-item {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             background-color: rgba(58, 42, 90, 0.5);
             border: 1px solid #3d2a5f;
             display: flex;
@@ -215,8 +215,8 @@
             position: absolute;
             bottom: 10px;
             left: 10px;
-            width: 100px;
-            height: 10px;
+            width: 80px;
+            height: 8px;
             background-color: #1a0a2a;
             margin-top: 5px;
             border: 1px solid #3d2a5f;
@@ -232,9 +232,9 @@
         
         #fear-label {
             position: absolute;
-            bottom: 25px;
+            bottom: 23px;
             left: 10px;
-            font-size: 12px;
+            font-size: 10px;
             color: #b19cd9;
             z-index: 2;
         }
@@ -243,8 +243,8 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            width: 100px;
-            height: 10px;
+            width: 80px;
+            height: 8px;
             background-color: #1a0a2a;
             margin-top: 5px;
             border: 1px solid #3d2a5f;
@@ -260,9 +260,9 @@
         
         #telekenesis-label {
             position: absolute;
-            bottom: 25px;
+            bottom: 23px;
             right: 10px;
-            font-size: 12px;
+            font-size: 10px;
             color: #b19cd9;
             z-index: 2;
         }
@@ -271,12 +271,6 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
-        }
-        
-        @keyframes catEyes {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
         }
         
         #flash {
@@ -291,41 +285,39 @@
             z-index: 20;
         }
         
-        /* Мобильные элементы управления */
         #mobile-controls {
             position: absolute;
             bottom: 20px;
             left: 20px;
-            width: 150px;
-            height: 150px;
-            z-index: 10;
-            display: none;
-            touch-action: none;
-        }
-        
-        #joystick-base {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background-color: rgba(42, 26, 74, 0.3);
-            border-radius: 50%;
-            border: 2px solid rgba(177, 156, 217, 0.5);
-            left: 0;
-            top: 0;
-            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            z-index: 1;
+            opacity: 0.7;
         }
         
         #joystick {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: rgba(42, 26, 74, 0.7);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(42, 26, 74, 0.5);
             border-radius: 50%;
             border: 2px solid #b19cd9;
-            left: 0;
-            top: 0;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             touch-action: none;
+        }
+        
+        #joystick-knob {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(177, 156, 217, 0.7);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
         }
         
         #action-buttons {
@@ -335,170 +327,40 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            z-index: 10;
-            display: none;
-            touch-action: none;
+            z-index: 1;
         }
         
         .action-btn {
-            width: 70px;
-            height: 70px;
-            background-color: rgba(42, 26, 74, 0.5);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            background-color: rgba(42, 26, 74, 0.7);
             border: 2px solid #b19cd9;
+            color: #b19cd9;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #b19cd9;
-            font-size: 14px;
+            font-size: 12px;
             text-align: center;
-            touch-action: none;
-            user-select: none;
-            transition: transform 0.1s;
+            touch-action: manipulation;
         }
         
-        .action-btn.pressed {
-            transform: scale(0.9);
-            background-color: rgba(58, 42, 90, 0.7);
+        .action-btn:active {
+            background-color: rgba(177, 156, 217, 0.3);
         }
         
         #restart-btn {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 30;
-            display: none;
-            background-color: rgba(42, 26, 74, 0.9);
+            top: 10px;
+            right: 10px;
+            background-color: rgba(42, 26, 74, 0.7);
+            border: 1px solid #b19cd9;
             color: #b19cd9;
-            border: 2px solid #b19cd9;
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 5px 10px;
             border-radius: 5px;
-        }
-        
-        /* Адаптивные стили */
-        @media (max-width: 768px) {
-            #title {
-                font-size: 36px;
-            }
-            
-            #subtitle {
-                font-size: 16px;
-                margin-bottom: 20px;
-            }
-            
-            #controls {
-                font-size: 12px;
-                margin-top: 20px;
-            }
-            
-            button {
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-            
-            #ui {
-                font-size: 14px;
-            }
-            
-            #health-bar, #fear-bar, #telekenesis-bar {
-                width: 80px;
-            }
-            
-            #mobile-controls {
-                display: block;
-            }
-            
-            #action-buttons {
-                display: flex;
-            }
-            
-            #inventory {
-                top: auto;
-                bottom: 80px;
-                flex-direction: row;
-                right: auto;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            #telekenesis-label, #fear-label {
-                font-size: 10px;
-            }
-            
-            #telekenesis-bar, #fear-bar {
-                bottom: 5px;
-                height: 8px;
-            }
-            
-            #telekenesis-label, #fear-label {
-                bottom: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            #title {
-                font-size: 28px;
-            }
-            
-            #subtitle {
-                font-size: 14px;
-            }
-            
-            button {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-            
-            .action-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 12px;
-            }
-            
-            #joystick {
-                width: 40px;
-                height: 40px;
-            }
-            
-            #joystick-base {
-                width: 70px;
-                height: 70px;
-            }
-            
-            #mobile-controls {
-                left: 15px;
-                bottom: 15px;
-            }
-            
-            #action-buttons {
-                right: 15px;
-                bottom: 15px;
-                gap: 8px;
-            }
-            
-            #message-box {
-                font-size: 16px;
-                bottom: 100px;
-                max-width: 90%;
-            }
-        }
-        
-        @media (max-height: 500px) {
-            #inventory {
-                top: 10px;
-                bottom: auto;
-                flex-direction: column;
-                right: 10px;
-                left: auto;
-                transform: none;
-            }
-            
-            #message-box {
-                bottom: 70px;
-                max-width: 70%;
-            }
+            font-size: 12px;
+            z-index: 3;
+            display: none;
         }
     </style>
 </head>
@@ -538,13 +400,13 @@
             <div id="title">ТАЙНА ГЛОРИИ</div>
             <div id="subtitle">После неудачного прыжка между мирами, Глория очнулась в странном особняке...<br>Ее кошачьи чувства сразу уловили что-то неладное - это место хранит секреты ее прошлого.<br>Найди 7 артефактов памяти, чтобы вспомнить путь домой.</div>
             <button id="start-button">НАЧАТЬ ИГРУ</button>
-            <div id="controls">Управление: Стрелки - движение, T - телекинез, P - портал, R - перезапуск<br>На мобильных: джойстик слева, кнопки справа</div>
+            <div id="controls">Управление: Джойстик - движение, кнопки - способности</div>
         </div>
         
-        <!-- Мобильные элементы управления -->
         <div id="mobile-controls">
-            <div id="joystick-base"></div>
-            <div id="joystick"></div>
+            <div id="joystick">
+                <div id="joystick-knob"></div>
+            </div>
         </div>
         
         <div id="action-buttons">
@@ -552,7 +414,7 @@
             <div class="action-btn" id="portal-btn">ПОРТАЛ</div>
         </div>
         
-        <button id="restart-btn">ПЕРЕЗАПУСТИТЬ</button>
+        <button id="restart-btn">РЕСТАРТ (R)</button>
         
         <div id="flash"></div>
     </div>
@@ -562,7 +424,7 @@
     </audio>
     
     <audio id="artifactSound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVundABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
     
     <audio id="hurtSound">
@@ -570,7 +432,7 @@
     </audio>
     
     <audio id="enemySound">
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQбHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
     </audio>
 
     <script>
@@ -591,11 +453,18 @@
         const flash = document.getElementById('flash');
         const restartBtn = document.getElementById('restart-btn');
         
-        // Мобильные элементы
+        // Мобильные элементы управления
         const joystick = document.getElementById('joystick');
-        const joystickBase = document.getElementById('joystick-base');
+        const joystickKnob = document.getElementById('joystick-knob');
         const telekinesisBtn = document.getElementById('telekinesis-btn');
         const portalBtn = document.getElementById('portal-btn');
+        
+        // Установка размеров canvas
+        function resizeCanvas() {
+            const container = document.getElementById('game-container');
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
         
         // Звуки
         const bgMusic = document.getElementById('bgMusic');
@@ -637,14 +506,14 @@
         let lastFearIncrease = 0;
         let lastTelekinesisIncrease = 0;
         
-        // Переменные для мобильного управления
+        // Джойстик переменные
         let joystickActive = false;
-        let joystickStartX = 0;
-        let joystickStartY = 0;
+        let joystickCenterX = 0;
+        let joystickCenterY = 0;
         let joystickX = 0;
         let joystickY = 0;
-        let joystickRadius = 50;
-        let activeTouchId = null;
+        let joystickAngle = 0;
+        let joystickDistance = 0;
         
         // История и диалоги
         const story = [
@@ -652,7 +521,7 @@
             "Ее кошачьи чувства сразу уловили что-то неладное - это место хранит секреты ее прошлого.",
             "Голос в голове прошептал: 'Найди 7 артефактов своей памяти, чтобы вспомнить путь домой...'",
             "Но особняк не хочет отпускать свою добычу. Тени шепчутся о прошлых жертвах.",
-            "Используй свои способности: телекинез (T) и порталы (P), но будь осторожна - они ограничены.",
+            "Используй свои способности: телекинез и порталы, но будь осторожна - они ограничены.",
             "Твоя кошачья природа дает тебе преимущества, но и делает уязвимой к определенным опасностям..."
         ];
         
@@ -696,187 +565,6 @@
                 trigger: "Держит в руках огромный шприц, капающий странной жидкостью"
             }
         ];
-        
-        // Инициализация игры
-        function initGame() {
-            // Установка размеров canvas
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // Инициализация мобильного управления
-            initMobileControls();
-            
-            // Начальная отрисовка
-            draw();
-        }
-        
-        // Изменение размера canvas
-        function resizeCanvas() {
-            const container = document.getElementById('game-container');
-            canvas.width = container.clientWidth;
-            canvas.height = container.clientHeight;
-            
-            // Перерисовываем, если игра уже идет
-            if (gameRunning) {
-                draw();
-            }
-        }
-        
-        // Инициализация мобильного управления
-        function initMobileControls() {
-            // Джойстик
-            joystickBase.addEventListener('touchstart', handleJoystickStart, { passive: false });
-            document.addEventListener('touchmove', handleJoystickMove, { passive: false });
-            document.addEventListener('touchend', handleJoystickEnd, { passive: false });
-            document.addEventListener('touchcancel', handleJoystickEnd, { passive: false });
-            
-            // Кнопки действий
-            telekinesisBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                telekinesisBtn.classList.add('pressed');
-                keys.KeyT = true;
-                if (gameRunning && player.telekinesis >= 30 && Date.now() - player.lastTelekinesisUse > player.telekinesisCooldown) {
-                    useTelekinesis();
-                }
-            }, { passive: false });
-            
-            telekinesisBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                telekinesisBtn.classList.remove('pressed');
-                keys.KeyT = false;
-            }, { passive: false });
-            
-            portalBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                portalBtn.classList.add('pressed');
-                keys.KeyP = true;
-                if (gameRunning && player.portalCharges > 0 && Date.now() - player.lastPortalUse > player.portalCooldown) {
-                    usePortal();
-                }
-            }, { passive: false });
-            
-            portalBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                portalBtn.classList.remove('pressed');
-                keys.KeyP = false;
-            }, { passive: false });
-            
-            // Кнопка перезапуска
-            restartBtn.addEventListener('click', startGame);
-        }
-
-        function handleJoystickStart(e) {
-            if (joystickActive) return;
-            
-            e.preventDefault();
-            joystickActive = true;
-            const touch = e.touches[0];
-            activeTouchId = touch.identifier;
-            
-            const rect = joystickBase.getBoundingClientRect();
-            joystickStartX = rect.left + rect.width/2;
-            joystickStartY = rect.top + rect.height/2;
-            
-            // Обновляем позицию джойстика
-            updateJoystickPosition(touch.clientX, touch.clientY);
-        }
-
-        function handleJoystickMove(e) {
-            if (!joystickActive) return;
-            
-            e.preventDefault();
-            let touch = null;
-            
-            // Находим нужное касание по идентификатору
-            for (let i = 0; i < e.changedTouches.length; i++) {
-                if (e.changedTouches[i].identifier === activeTouchId) {
-                    touch = e.changedTouches[i];
-                    break;
-                }
-            }
-            
-            if (!touch) return;
-            
-            // Обновляем позицию джойстика
-            updateJoystickPosition(touch.clientX, touch.clientY);
-        }
-
-        function handleJoystickEnd(e) {
-            if (!joystickActive) return;
-            
-            e.preventDefault();
-            joystickActive = false;
-            joystickX = 0;
-            joystickY = 0;
-            joystick.style.transform = 'translate(0, 0)';
-            activeTouchId = null;
-            
-            // Сбрасываем управление
-            keys.ArrowUp = false;
-            keys.ArrowDown = false;
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
-        }
-
-        function updateJoystickPosition(touchX, touchY) {
-            // Вычисляем расстояние от центра джойстика
-            const dx = touchX - joystickStartX;
-            const dy = touchY - joystickStartY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            // Ограничиваем радиус джойстика
-            if (distance > joystickRadius) {
-                const angle = Math.atan2(dy, dx);
-                joystickX = Math.cos(angle) * joystickRadius;
-                joystickY = Math.sin(angle) * joystickRadius;
-            } else {
-                joystickX = dx;
-                joystickY = dy;
-            }
-            
-            // Обновляем позицию джойстика
-            joystick.style.transform = `translate(${joystickX}px, ${joystickY}px)`;
-            
-            // Обновляем управление
-            updateMobileControls();
-        }
-
-        // Обновление управления на основе джойстика
-        function updateMobileControls() {
-            // Определяем направление
-            const deadZone = 10;
-            
-            if (Math.abs(joystickX) > deadZone || Math.abs(joystickY) > deadZone) {
-                // Вертикальное движение
-                if (joystickY < -deadZone) {
-                    keys.ArrowUp = true;
-                    keys.ArrowDown = false;
-                } else if (joystickY > deadZone) {
-                    keys.ArrowUp = false;
-                    keys.ArrowDown = true;
-                } else {
-                    keys.ArrowUp = false;
-                    keys.ArrowDown = false;
-                }
-                
-                // Горизонтальное движение
-                if (joystickX < -deadZone) {
-                    keys.ArrowLeft = true;
-                    keys.ArrowRight = false;
-                } else if (joystickX > deadZone) {
-                    keys.ArrowLeft = false;
-                    keys.ArrowRight = true;
-                } else {
-                    keys.ArrowLeft = false;
-                    keys.ArrowRight = false;
-                }
-            } else {
-                keys.ArrowUp = false;
-                keys.ArrowDown = false;
-                keys.ArrowLeft = false;
-                keys.ArrowRight = false;
-            }
-        }
         
         // Генерация комнат
         function generateRooms() {
@@ -1073,6 +761,8 @@
         // Использование телекинеза
         function useTelekinesis() {
             const now = Date.now();
+            if (player.telekinesis < 30 || now - player.lastTelekinesisUse < player.telekinesisCooldown) return;
+            
             player.lastTelekinesisUse = now;
             
             // Отталкиваем врагов
@@ -1107,6 +797,8 @@
         // Использование портала
         function usePortal() {
             const now = Date.now();
+            if (player.portalCharges <= 0 || now - player.lastPortalUse < player.portalCooldown) return;
+            
             player.lastPortalUse = now;
             player.portalCharges--;
             
@@ -1146,13 +838,13 @@
                 
                 if (item.dataset.item === 'telekenesis') {
                     const now = Date.now();
-                    if (player.telekinesis >= 30) {
+                    if (player.telekinesis >= 30 && now - player.lastTelekinesisUse > player.telekinesisCooldown) {
                         item.classList.add('active');
                     }
                 }
                 
                 if (item.dataset.item === 'portal') {
-                    if (player.portalCharges > 0) {
+                    if (player.portalCharges > 0 && Date.now() - player.lastPortalUse > player.portalCooldown) {
                         item.classList.add('active');
                     }
                 }
@@ -1165,38 +857,44 @@
             
             gameTime++;
             
-            // Управление игроком
-            if (keys.ArrowUp) {
-                player.y -= player.speed;
-                changeRoom('up');
-            }
-            if (keys.ArrowDown) {
-                player.y += player.speed;
-                changeRoom('down');
-            }
-            if (keys.ArrowLeft) {
-                player.x -= player.speed;
-                changeRoom('left');
-            }
-            if (keys.ArrowRight) {
-                player.x += player.speed;
-                changeRoom('right');
+            // Управление игроком через джойстик
+            if (joystickActive) {
+                const speedFactor = joystickDistance / 30;
+                player.x += Math.cos(joystickAngle) * player.speed * speedFactor;
+                player.y += Math.sin(joystickAngle) * player.speed * speedFactor;
+                
+                // Проверка смены комнаты
+                if (player.x <= player.size) {
+                    changeRoom('left');
+                } else if (player.x >= canvas.width - player.size) {
+                    changeRoom('right');
+                }
+                
+                if (player.y <= player.size) {
+                    changeRoom('up');
+                } else if (player.y >= canvas.height - player.size) {
+                    changeRoom('down');
+                }
             }
             
             // Границы игрока
             player.x = Math.max(player.size, Math.min(canvas.width - player.size, player.x));
             player.y = Math.max(player.size, Math.min(canvas.height - player.size, player.y));
             
-            // Использование телекинеза (T)
-            if (keys.KeyT && player.telekinesis >= 30 && Date.now() - player.lastTelekinesisUse > player.telekinesisCooldown) {
-                useTelekinesis();
-                keys.KeyT = false;
+            // Восстановление телекинеза
+            const now = Date.now();
+            if (now - lastTelekinesisIncrease > 1000 && player.telekinesis < player.maxTelekinesis) {
+                player.telekinesis += 1;
+                lastTelekinesisIncrease = now;
+                updateTelekinesisBar();
+                updateInventory();
             }
             
-            // Использование портала (P)
-            if (keys.KeyP && player.portalCharges > 0 && Date.now() - player.lastPortalUse > player.portalCooldown) {
-                usePortal();
-                keys.KeyP = false;
+            // Восстановление зарядов портала
+            if (player.portalCharges < player.maxPortalCharges && now - player.lastPortalUse > player.portalCooldown) {
+                player.portalCharges = player.maxPortalCharges;
+                updateInventory();
+                showMessage("Порталы перезаряжены!", 2000);
             }
             
             // Кошачьи подсказки
@@ -1207,21 +905,6 @@
                     "Нос учуял слабый запах валерьянки, исходящий от одной из стен..."
                 ];
                 showMessage(hints[Math.floor(Math.random() * hints.length)]);
-            }
-            
-            // Восстановление телекинеза
-            const now = Date.now();
-            if (now - lastTelekinesisIncrease > 1000 && player.telekinesis < player.maxTelekinesis) {
-                player.telekinesis += 1;
-                lastTelekinesisIncrease = now;
-                updateTelekinesisBar();
-            }
-            
-            // Восстановление зарядов портала
-            if (player.portalCharges < player.maxPortalCharges && now - player.lastPortalUse > player.portalCooldown) {
-                player.portalCharges = player.maxPortalCharges;
-                updateInventory();
-                showMessage("Порталы перезаряжены!", 2000);
             }
             
             // Обновление страха
@@ -1259,7 +942,7 @@
                     healthFillElement.style.width = player.health + '%';
                     
                     if (player.health <= 0) {
-                        showMessage("ПАНИЧЕСКАЯ АТАКА! Глория теряет сознание... Нажмите R чтобы попробовать снова", 5000);
+                        showMessage("ПАНИЧЕСКАЯ АТАКА! Глория теряет сознание... Нажмите кнопку рестарта", 5000);
                         gameRunning = false;
                         restartBtn.style.display = 'block';
                     }
@@ -1316,6 +999,7 @@
                     "КОНЕЦ"
                 ]);
                 gameRunning = false;
+                restartBtn.style.display = 'block';
             }
             
             // Спавн врагов
@@ -1350,7 +1034,7 @@
                         updateFearBar();
                         
                         if (player.health <= 0) {
-                            showMessage("ВЫ ПОГИБЛИ... НАЖМИТЕ R ЧТОБЫ ПЕРЕЗАПУСТИТЬСЯ", 5000);
+                            showMessage("ВЫ ПОГИБЛИ... НАЖМИТЕ КНОПКУ РЕСТАРТА", 5000);
                             gameRunning = false;
                             restartBtn.style.display = 'block';
                         }
@@ -1605,40 +1289,108 @@
             ctx.stroke();
         }
         
-        // Управление клавиатурой
-        let keys = {
-            ArrowUp: false,
-            ArrowDown: false,
-            ArrowLeft: false,
-            ArrowRight: false,
-            KeyT: false,
-            KeyP: false
-        };
+        // Управление джойстиком
+        function setupJoystick() {
+            const joystickRect = joystick.getBoundingClientRect();
+            joystickCenterX = joystickRect.left + joystickRect.width / 2;
+            joystickCenterY = joystickRect.top + joystickRect.height / 2;
+            
+            joystick.addEventListener('touchstart', handleJoystickStart);
+            joystick.addEventListener('touchmove', handleJoystickMove);
+            joystick.addEventListener('touchend', handleJoystickEnd);
+            
+            // Для тестирования на ПК
+            joystick.addEventListener('mousedown', handleJoystickStart);
+            document.addEventListener('mousemove', handleJoystickMove);
+            document.addEventListener('mouseup', handleJoystickEnd);
+        }
         
-        window.addEventListener('keydown', (e) => {
-            if (e.key in keys) {
-                keys[e.key] = true;
-                e.preventDefault();
+        function handleJoystickStart(e) {
+            e.preventDefault();
+            joystickActive = true;
+            updateJoystickPosition(e);
+        }
+        
+        function handleJoystickMove(e) {
+            if (!joystickActive) return;
+            e.preventDefault();
+            updateJoystickPosition(e);
+        }
+        
+        function handleJoystickEnd(e) {
+            if (!joystickActive) return;
+            e.preventDefault();
+            joystickActive = false;
+            
+            // Возвращаем джойстик в центр
+            joystickKnob.style.transform = 'translate(-50%, -50%)';
+            joystickX = 0;
+            joystickY = 0;
+            joystickAngle = 0;
+            joystickDistance = 0;
+        }
+        
+        function updateJoystickPosition(e) {
+            let clientX, clientY;
+            
+            if (e.type.includes('touch')) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
             }
             
-            // Перезапуск игры
-            if (e.key.toLowerCase() === 'r' && !gameRunning) {
-                startGame();
+            // Вычисляем положение относительно центра джойстика
+            joystickX = clientX - joystickCenterX;
+            joystickY = clientY - joystickCenterY;
+            
+            // Ограничиваем расстояние до границ джойстика
+            joystickDistance = Math.min(Math.sqrt(joystickX * joystickX + joystickY * joystickY), 30);
+            joystickAngle = Math.atan2(joystickY, joystickX);
+            
+            // Нормализуем координаты, если вышли за пределы
+            if (joystickDistance > 30) {
+                joystickX = Math.cos(joystickAngle) * 30;
+                joystickY = Math.sin(joystickAngle) * 30;
+                joystickDistance = 30;
             }
-        });
+            
+            // Обновляем положение ручки джойстика
+            joystickKnob.style.transform = `translate(${joystickX}px, ${joystickY}px) translate(-50%, -50%)`;
+        }
         
-        window.addEventListener('keyup', (e) => {
-            if (e.key in keys) {
-                keys[e.key] = false;
+        // Настройка кнопок действий
+        function setupActionButtons() {
+            telekinesisBtn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-            }
-        });
-        
-        // Кнопка "Далее" в диалоге
-        dialogNext.addEventListener('click', nextDialog);
+                useTelekinesis();
+            });
+            
+            telekinesisBtn.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                useTelekinesis();
+            });
+            
+            portalBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                usePortal();
+            });
+            
+            portalBtn.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                usePortal();
+            });
+            
+            // Для тестирования на ПК
+            restartBtn.addEventListener('click', startGame);
+        }
         
         // Запуск игры
         function startGame() {
+            // Установка размеров canvas
+            resizeCanvas();
+            
             player = {
                 x: canvas.width / 2,
                 y: canvas.height / 2,
@@ -1672,8 +1424,8 @@
             lastTelekinesisIncrease = Date.now();
             
             startScreen.style.display = 'none';
-            restartBtn.style.display = 'none';
             gameRunning = true;
+            restartBtn.style.display = 'none';
             
             updateInventory();
             
@@ -1685,11 +1437,27 @@
             update();
         }
         
-        // Кнопка старта
-        startButton.addEventListener('click', startGame);
+        // Инициализация игры
+        function init() {
+            setupJoystick();
+            setupActionButtons();
+            
+            // Кнопка "Далее" в диалоге
+            dialogNext.addEventListener('click', nextDialog);
+            
+            // Кнопка старта
+            startButton.addEventListener('click', startGame);
+            
+            // Обработчик изменения размера окна
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Начальная отрисовка
+            resizeCanvas();
+            draw();
+        }
         
-        // Инициализация игры при загрузке
-        window.addEventListener('load', initGame);
+        // Запуск инициализации после загрузки страницы
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
