@@ -40,7 +40,7 @@
             top: 10px;
             left: 10px;
             font-size: 14px;
-            background-color: rgba(42, 26, 74, 0.7);
+            background-color: rgba(42, 26, 74, 0.5);
             padding: 5px 10px;
             border-radius: 5px;
             z-index: 2;
@@ -66,7 +66,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(42, 26, 74, 0.9);
+            background-color: rgba(42, 26, 74, 0.37);
             padding: 10px 15px;
             border: 2px solid #b19cd9;
             max-width: 90%;
@@ -74,7 +74,7 @@
             display: none;
             font-size: 14px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(177, 156, 217, 0.5);
+            box-shadow: 0 0 10px rgba(177, 156, 217, 0.692);
             z-index: 2;
         }
         
@@ -84,7 +84,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.884); /* Более темный фон для лучшей читаемости */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -104,25 +104,38 @@
             animation: pulse 2s infinite;
             text-align: center;
             padding: 0 10px;
+            font-weight: bold; /* Добавляем жирность */
+            background-color: rgba(42, 26, 74, 0.5); /* Фон для лучшей читаемости */
+            padding: 15px 25px; /* Больше отступы */
+            border-radius: 10px; /* Скругленные углы */
+            border: 2px solid #b19cd9; /* Граница */
         }
         
         #subtitle {
             font-size: 14px;
-            color: #aaa;
+            color: #ddd; /* Более светлый цвет текста */
             margin-bottom: 30px;
             text-align: center;
             max-width: 90%;
-            line-height: 1.4;
-            padding: 0 10px;
+            line-height: 1.6; /* Увеличиваем межстрочный интервал */
+            padding: 15px 20px; /* Больше отступы */
+            background-color: rgba(29, 17, 53, 0.801); /* Фон для лучшей читаемости */
+            border-radius: 10px; /* Скругленные углы */
+            border: 1px solid #3d2a5f; /* Граница */
         }
         
         #controls {
             margin-top: 20px;
             font-size: 12px;
-            color: #777;
+            color: #ccc; /* Более светлый цвет текста */
             text-align: center;
             max-width: 90%;
+            background-color: rgba(29, 17, 53, 0.801); /* Фон для лучшей читаемости */
+            padding: 10px 15px; /* Больше отступы */
+            border-radius: 10px; /* Скругленные углы */
+            border: 1px solid #3d2a5f; /* Граница */
         }
+        
         
         button {
             background-color: #2a1a4a;
@@ -148,7 +161,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(42, 26, 74, 0.9);
+            background-color: rgba(42, 26, 74, 0.404); /* Уменьшаем непрозрачность */
             padding: 10px;
             border: 2px solid #b19cd9;
             max-width: 80%;
@@ -160,12 +173,15 @@
             line-height: 1.6;
             font-size: 16px;
             animation: pulse 2s infinite;
+            backdrop-filter: blur(2px); /* Добавляем легкое размытие фона */
         }
         
         #dialog-text {
             margin-bottom: 10px;
             font-size: 14px;
             line-height: 1.4;
+            color: #fff; /* Белый текст для лучшей читаемости */
+            text-shadow: 0 0 3px #000; /* Тень текста для контраста */
         }
         
         #dialog-next {
@@ -182,7 +198,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: rgba(42, 26, 74, 0.7);
+            background-color: rgba(42, 26, 74, 0.726);
             padding: 8px;
             border-radius: 5px;
             display: flex;
@@ -194,8 +210,8 @@
         .inventory-item {
             width: 35px;
             height: 35px;
-            background-color: rgba(58, 42, 90, 0.5);
-            border: 1px solid #3d2a5f;
+            background-color: rgba(58, 42, 90, 0.61);
+            border: 1px solid #3e2a5f62;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -205,6 +221,7 @@
         .inventory-item.active {
             border-color: #b19cd9;
             box-shadow: 0 0 5px #b19cd9;
+            animation: pulse 1s infinite;
         }
         
         .inventory-item img {
@@ -220,9 +237,9 @@
             left: 10px;
             width: 80px;
             height: 8px;
-            background-color: #1a0a2a;
+            background-color: #1a0a2a65;
             margin-top: 5px;
-            border: 1px solid #3d2a5f;
+            border: 1px solid #3e2a5fec;
             z-index: 2;
         }
         
@@ -286,6 +303,7 @@
             opacity: 0;
             pointer-events: none;
             z-index: 20;
+            transition: opacity 0.3s;
         }
         
         /* Мобильные элементы управления */
@@ -323,6 +341,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+            transition: transform 0.1s;
         }
         
         #action-buttons {
@@ -349,10 +368,12 @@
             font-size: 12px;
             text-align: center;
             touch-action: manipulation;
+            transition: all 0.1s;
         }
         
         .action-btn:active {
             background-color: rgba(177, 156, 217, 0.3);
+            transform: scale(0.95);
         }
         
         #restart-btn {
@@ -395,16 +416,20 @@
                 font-size: 48px;
                 margin-bottom: 20px;
                 letter-spacing: 3px;
+                padding: 20px 40px; /* Больше отступы на ПК */
             }
             
             #subtitle {
                 font-size: 18px;
                 margin-bottom: 40px;
+                max-width: 70%; /* Уже на ПК */
+                padding: 20px 30px; /* Больше отступы на ПК */
             }
             
             #controls {
                 font-size: 14px;
                 margin-top: 30px;
+                max-width: 70%; /* Уже на ПК */
             }
             
             button {
@@ -415,6 +440,7 @@
             
             #dialog-box {
                 padding: 15px;
+                max-width: 60%; /* Шире на ПК */
             }
             
             #dialog-text {
@@ -447,6 +473,27 @@
                 padding: 12px 20px;
                 font-size: 16px;
             }
+            
+            .action-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 14px;
+            }
+            
+            #mobile-controls {
+                width: 140px;
+                height: 140px;
+            }
+            
+            #joystick {
+                width: 80px;
+                height: 80px;
+            }
+            
+            #joystick-knob {
+                width: 40px;
+                height: 40px;
+            }
         }
         
         /* Новые элементы интерфейса */
@@ -461,6 +508,7 @@
             font-size: 14px;
             z-index: 2;
             display: none;
+            animation: fadeIn 0.5s;
         }
         
         #ability-cooldowns {
@@ -507,6 +555,7 @@
             border: 1px solid #3d2a5f;
             z-index: 2;
             display: none;
+            animation: fadeIn 0.5s;
         }
         
         #mini-map-grid {
@@ -523,6 +572,7 @@
             background-color: rgba(58, 42, 90, 0.3);
             border: 1px solid #3d2a5f;
             position: relative;
+            transition: all 0.3s;
         }
         
         .mini-map-room.active {
@@ -548,6 +598,7 @@
             height: 4px;
             background-color: #b19cd9;
             border-radius: 50%;
+            animation: pulse 1.5s infinite;
         }
         
         .mini-map-room.artifact.collected::after {
@@ -568,6 +619,11 @@
             align-items: center;
             z-index: 2;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        #sound-toggle:active {
+            transform: scale(0.9);
         }
 
         /* Стили для финальной кат-сцены */
@@ -654,11 +710,28 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         .ending-paragraph {
             opacity: 0;
             transform: translateY(20px);
             animation: textReveal 1s forwards;
             margin-bottom: 20px;
+        }
+        
+        /* Эффект дрожания */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-3px); }
+            40%, 60% { transform: translateX(3px); }
         }
     </style>
 </head>
@@ -823,6 +896,24 @@
             const container = document.getElementById('game-container');
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
+            
+            // Пересчитываем позиции игрока и объектов при изменении размера
+            if (gameRunning) {
+                player.x = Math.min(player.x, canvas.width - player.size);
+                player.y = Math.min(player.y, canvas.height - player.size);
+                
+                // Обновляем позиции артефактов
+                artifacts.forEach(artifact => {
+                    artifact.x = Math.min(artifact.x, canvas.width - 20);
+                    artifact.y = Math.min(artifact.y, canvas.height - 20);
+                });
+                
+                // Обновляем позиции врагов
+                enemies.forEach(enemy => {
+                    enemy.x = Math.min(enemy.x, canvas.width - enemy.size/2);
+                    enemy.y = Math.min(enemy.y, canvas.height - enemy.size/2);
+                });
+            }
         }
         
         // Звуки
@@ -1061,8 +1152,8 @@
                         validPosition = true;
                         for (const item of furnitureList) {
                             if (checkCollision(
-                                x, y, type.width,
-                                item.x, item.y, item.width
+                                x, y, type.width, type.height,
+                                item.x, item.y, item.width, item.height
                             )) {
                                 validPosition = false;
                                 break;
@@ -1268,14 +1359,36 @@
             }
         }
         
-        // Проверка столкновений
-        function checkCollision(x1, y1, size1, x2, y2, size2) {
+        // Проверка столкновений (прямоугольник с прямоугольником)
+        function checkCollision(x1, y1, w1, h1, x2, y2, w2, h2) {
             return (
-                x1 < x2 + size2 &&
-                x1 + size1 > x2 &&
-                y1 < y2 + size2 &&
-                y1 + size1 > y2
+                x1 < x2 + w2 &&
+                x1 + w1 > x2 &&
+                y1 < y2 + h2 &&
+                y1 + h1 > y2
             );
+        }
+        
+        // Проверка столкновений (круг с кругом)
+        function checkCircleCollision(x1, y1, r1, x2, y2, r2) {
+            const dx = x1 - x2;
+            const dy = y1 - y2;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance < r1 + r2;
+        }
+        
+        // Проверка столкновений (круг с прямоугольником)
+        function checkCircleRectCollision(cx, cy, cr, rx, ry, rw, rh) {
+            // Находим ближайшую точку на прямоугольнике к кругу
+            const closestX = Math.max(rx, Math.min(cx, rx + rw));
+            const closestY = Math.max(ry, Math.min(cy, ry + rh));
+            
+            // Вычисляем расстояние от центра круга до этой точки
+            const distanceX = cx - closestX;
+            const distanceY = cy - closestY;
+            
+            // Если расстояние меньше радиуса, есть столкновение
+            return (distanceX * distanceX + distanceY * distanceY) < (cr * cr);
         }
         
         // Обновление шкалы страха
@@ -1345,11 +1458,20 @@
                 telekinesisSound.play().catch(e => console.log("Audio play failed:", e));
             }
             
+            // Эффект вспышки
             flash.style.backgroundColor = "#b19cd9";
             flash.style.opacity = 0.3;
             setTimeout(() => {
                 flash.style.opacity = 0;
             }, 300);
+            
+            // Анимация встряски для врагов
+            enemies.forEach(enemy => {
+                enemy.flashTimer = 10;
+            });
+            
+            // Обновляем инвентарь
+            updateInventory();
         }
         
         // Использование портала
@@ -1375,6 +1497,18 @@
                         break;
                     }
                 }
+                
+                // Проверяем столкновение с мебелью
+                for (const item of furniture) {
+                    if (checkCircleRectCollision(
+                        player.x, player.y, player.size/2,
+                        item.x, item.y, item.width, item.height
+                    )) {
+                        safeSpot = false;
+                        break;
+                    }
+                }
+                
                 attempts++;
             }
             
@@ -1387,6 +1521,7 @@
                 portalSound.play().catch(e => console.log("Audio play failed:", e));
             }
             
+            // Эффект вспышки
             flash.style.backgroundColor = "#3d2a5f";
             flash.style.opacity = 0.5;
             setTimeout(() => {
@@ -1576,6 +1711,22 @@
                 }
             }
             
+            // Проверка столкновений с мебелью
+            for (const item of furniture) {
+                if (checkCircleRectCollision(
+                    player.x, player.y, player.size/2,
+                    item.x, item.y, item.width, item.height
+                )) {
+                    // Отталкиваем игрока от мебели
+                    const centerX = item.x + item.width/2;
+                    const centerY = item.y + item.height/2;
+                    const angle = Math.atan2(player.y - centerY, player.x - centerX);
+                    
+                    player.x += Math.cos(angle) * 2;
+                    player.y += Math.sin(angle) * 2;
+                }
+            }
+            
             // Границы игрока
             player.x = Math.max(player.size, Math.min(canvas.width - player.size, player.x));
             player.y = Math.max(player.size, Math.min(canvas.height - player.size, player.y));
@@ -1666,9 +1817,9 @@
             
             // Сбор артефактов
             artifacts.forEach(artifact => {
-                if (!artifact.collected && checkCollision(
-                    player.x - player.size/2, player.y - player.size/2, player.size,
-                    artifact.x - 8, artifact.y - 8, 16
+                if (!artifact.collected && checkCircleCollision(
+                    player.x, player.y, player.size/2,
+                    artifact.x, artifact.y, 8
                 )) {
                     artifact.collected = true;
                     player.artifacts++;
@@ -1695,7 +1846,7 @@
             
             // Проверка победы
             if (player.artifacts === 7 && currentRoom === 0 && 
-                checkCollision(player.x, player.y, player.size, 50, 50, 100)) {
+                checkCircleCollision(player.x, player.y, player.size/2, 50, 50, 50)) {
                 // Останавливаем игру
                 gameRunning = false;
                 
@@ -1728,9 +1879,9 @@
                     }
                     
                     // Проверка столкновения с игроком
-                    if (checkCollision(
-                        player.x - player.size/2, player.y - player.size/2, player.size,
-                        enemy.x - enemy.size/2, enemy.y - enemy.size/2, enemy.size
+                    if (checkCircleCollision(
+                        player.x, player.y, player.size/2,
+                        enemy.x, enemy.y, enemy.size/2
                     )) {
                         player.health -= 5;
                         healthFillElement.style.width = player.health + '%';
@@ -1748,6 +1899,27 @@
                             gameRunning = false;
                             restartBtn.style.display = 'block';
                         }
+                    }
+                    
+                    // Проверка столкновения с мебелью
+                    for (const item of furniture) {
+                        if (checkCircleRectCollision(
+                            enemy.x, enemy.y, enemy.size/2,
+                            item.x, item.y, item.width, item.height
+                        )) {
+                            // Отталкиваем врага от мебели
+                            const centerX = item.x + item.width/2;
+                            const centerY = item.y + item.height/2;
+                            const angle = Math.atan2(enemy.y - centerY, enemy.x - centerX);
+                            
+                            enemy.x += Math.cos(angle) * 2;
+                            enemy.y += Math.sin(angle) * 2;
+                        }
+                    }
+                    
+                    // Анимация эффекта телекинеза
+                    if (enemy.flashTimer > 0) {
+                        enemy.flashTimer--;
                     }
                 }
             });
@@ -1834,6 +2006,14 @@
                     ctx.beginPath();
                     ctx.arc(enemy.x, enemy.y + 5, enemy.size/2, 0, Math.PI * 2);
                     ctx.fill();
+                    
+                    // Эффект телекинеза (если есть)
+                    if (enemy.flashTimer > 0) {
+                        ctx.fillStyle = `rgba(177, 156, 217, ${enemy.flashTimer / 20})`;
+                        ctx.beginPath();
+                        ctx.arc(enemy.x, enemy.y, enemy.size/2 + 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
                     
                     // Тело
                     ctx.fillStyle = enemy.color;
