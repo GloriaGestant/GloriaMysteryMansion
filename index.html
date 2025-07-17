@@ -84,7 +84,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.884); /* Более темный фон для лучшей читаемости */
+            background-color: rgba(0, 0, 0, 0.884);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -104,38 +104,37 @@
             animation: pulse 2s infinite;
             text-align: center;
             padding: 0 10px;
-            font-weight: bold; /* Добавляем жирность */
-            background-color: rgba(42, 26, 74, 0.5); /* Фон для лучшей читаемости */
-            padding: 15px 25px; /* Больше отступы */
-            border-radius: 10px; /* Скругленные углы */
-            border: 2px solid #b19cd9; /* Граница */
+            font-weight: bold;
+            background-color: rgba(42, 26, 74, 0.5);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 2px solid #b19cd9;
         }
         
         #subtitle {
             font-size: 14px;
-            color: #ddd; /* Более светлый цвет текста */
+            color: #ddd;
             margin-bottom: 30px;
             text-align: center;
             max-width: 90%;
-            line-height: 1.6; /* Увеличиваем межстрочный интервал */
-            padding: 15px 20px; /* Больше отступы */
-            background-color: rgba(29, 17, 53, 0.801); /* Фон для лучшей читаемости */
-            border-radius: 10px; /* Скругленные углы */
-            border: 1px solid #3d2a5f; /* Граница */
+            line-height: 1.6;
+            padding: 15px 20px;
+            background-color: rgba(29, 17, 53, 0.801);
+            border-radius: 10px;
+            border: 1px solid #3d2a5f;
         }
         
         #controls {
             margin-top: 20px;
             font-size: 12px;
-            color: #ccc; /* Более светлый цвет текста */
+            color: #ccc;
             text-align: center;
             max-width: 90%;
-            background-color: rgba(29, 17, 53, 0.801); /* Фон для лучшей читаемости */
-            padding: 10px 15px; /* Больше отступы */
-            border-radius: 10px; /* Скругленные углы */
-            border: 1px solid #3d2a5f; /* Граница */
+            background-color: rgba(29, 17, 53, 0.801);
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #3d2a5f;
         }
-        
         
         button {
             background-color: #2a1a4a;
@@ -161,7 +160,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(42, 26, 74, 0.404); /* Уменьшаем непрозрачность */
+            background-color: rgba(42, 26, 74, 0.404);
             padding: 10px;
             border: 2px solid #b19cd9;
             max-width: 80%;
@@ -173,15 +172,15 @@
             line-height: 1.6;
             font-size: 16px;
             animation: pulse 2s infinite;
-            backdrop-filter: blur(2px); /* Добавляем легкое размытие фона */
+            backdrop-filter: blur(2px);
         }
         
         #dialog-text {
             margin-bottom: 10px;
             font-size: 14px;
             line-height: 1.4;
-            color: #fff; /* Белый текст для лучшей читаемости */
-            text-shadow: 0 0 3px #000; /* Тень текста для контраста */
+            color: #fff;
+            text-shadow: 0 0 3px #000;
         }
         
         #dialog-next {
@@ -259,6 +258,15 @@
             z-index: 2;
         }
         
+        #telekenesis-label {
+            position: absolute;
+            bottom: 23px;
+            right: 10px;
+            font-size: 10px;
+            color: #b19cd9;
+            z-index: 2;
+        }
+        
         #telekenesis-bar {
             position: absolute;
             bottom: 10px;
@@ -276,15 +284,6 @@
             background-color: #b19cd9;
             width: 0%;
             transition: width 0.3s;
-        }
-        
-        #telekenesis-label {
-            position: absolute;
-            bottom: 23px;
-            right: 10px;
-            font-size: 10px;
-            color: #b19cd9;
-            z-index: 2;
         }
         
         @keyframes pulse {
@@ -416,20 +415,20 @@
                 font-size: 48px;
                 margin-bottom: 20px;
                 letter-spacing: 3px;
-                padding: 20px 40px; /* Больше отступы на ПК */
+                padding: 20px 40px;
             }
             
             #subtitle {
                 font-size: 18px;
                 margin-bottom: 40px;
-                max-width: 70%; /* Уже на ПК */
-                padding: 20px 30px; /* Больше отступы на ПК */
+                max-width: 70%;
+                padding: 20px 30px;
             }
             
             #controls {
                 font-size: 14px;
                 margin-top: 30px;
-                max-width: 70%; /* Уже на ПК */
+                max-width: 70%;
             }
             
             button {
@@ -440,7 +439,7 @@
             
             #dialog-box {
                 padding: 15px;
-                max-width: 60%; /* Шире на ПК */
+                max-width: 60%;
             }
             
             #dialog-text {
@@ -465,8 +464,44 @@
                 font-size: 12px;
                 bottom: 25px;
             }
+            
+            /* Новый стиль для счетчика артефактов под названием комнаты */
+            #artifact-counter {
+                position: absolute;
+                top: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: rgba(42, 26, 74, 0.7);
+                padding: 8px 15px;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                z-index: 2;
+                border: 1px solid #b19cd9;
+                box-shadow: 0 0 10px rgba(177, 156, 217, 0.5);
+            }
+            
+            #artifact-counter .artifact-icon {
+                width: 20px;
+                height: 20px;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="%23b19cd9"/><path d="M4,8 L12,8 M8,4 L8,12" stroke="%232a1a4a" stroke-width="2"/></svg>');
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            
+            #artifact-counter .counter {
+                font-size: 16px;
+                font-weight: bold;
+                color: #b19cd9;
+            }
+            
+            #artifact-counter .progress {
+                font-size: 14px;
+                color: #ddd;
+            }
         }
-
+        
         /* Стили для мобильных устройств */
         @media (max-width: 767px) {
             #restart-btn {
@@ -493,6 +528,42 @@
             #joystick-knob {
                 width: 40px;
                 height: 40px;
+            }
+            
+            /* Новый стиль для счетчика артефактов под названием комнаты на мобильных */
+            #artifact-counter {
+                position: absolute;
+                top: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: rgba(42, 26, 74, 0.7);
+                padding: 6px 12px;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                z-index: 2;
+                border: 1px solid #b19cd9;
+                box-shadow: 0 0 8px rgba(177, 156, 217, 0.5);
+            }
+            
+            #artifact-counter .artifact-icon {
+                width: 16px;
+                height: 16px;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="%23b19cd9"/><path d="M4,8 L12,8 M8,4 L8,12" stroke="%232a1a4a" stroke-width="2"/></svg>');
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            
+            #artifact-counter .counter {
+                font-size: 14px;
+                font-weight: bold;
+                color: #b19cd9;
+            }
+            
+            #artifact-counter .progress {
+                font-size: 12px;
+                color: #ddd;
             }
         }
         
@@ -733,6 +804,11 @@
             30%, 50%, 70% { transform: translateX(-3px); }
             40%, 60% { transform: translateX(3px); }
         }
+        
+        /* Новый счетчик артефактов */
+        #artifact-counter {
+            display: none; /* По умолчанию скрыт, будет показан при старте игры */
+        }
     </style>
 </head>
 <body>
@@ -740,9 +816,15 @@
         <canvas id="game-canvas"></canvas>
         
         <div id="ui">
-            <div>Артефакты: <span id="artifact-count">0</span>/7</div>
             <div>Здоровье:</div>
             <div id="health-bar"><div id="health-fill"></div></div>
+        </div>
+        
+        <!-- Новый счетчик артефактов -->
+        <div id="artifact-counter">
+            <div class="artifact-icon"></div>
+            <div class="counter">0/7</div>
+            <div class="progress">0%</div>
         </div>
         
         <div id="room-indicator">Комната: Прихожая</div>
@@ -861,7 +943,6 @@
         // Игровые переменные для Глории
         const canvas = document.getElementById('game-canvas');
         const ctx = canvas.getContext('2d');
-        const artifactCountElement = document.getElementById('artifact-count');
         const healthFillElement = document.getElementById('health-fill');
         const fearFillElement = document.getElementById('fear-fill');
         const telekenesisFillElement = document.getElementById('telekenesis-fill');
@@ -879,6 +960,9 @@
         const miniMap = document.getElementById('mini-map');
         const miniMapGrid = document.getElementById('mini-map-grid');
         const soundToggle = document.getElementById('sound-toggle');
+        const artifactCounter = document.getElementById('artifact-counter');
+        const artifactCounterText = artifactCounter.querySelector('.counter');
+        const artifactProgressText = artifactCounter.querySelector('.progress');
         
         // Мобильные элементы управления
         const joystick = document.getElementById('joystick');
@@ -1214,6 +1298,30 @@
             }
             
             miniMap.style.display = 'block';
+        }
+        
+        // Обновление счетчика артефактов
+        function updateArtifactCounter() {
+            const progress = Math.floor((player.artifacts / 7) * 100);
+            artifactCounterText.textContent = `${player.artifacts}/7`;
+            artifactProgressText.textContent = `${progress}%`;
+            
+            // Анимация при сборе артефакта
+            if (player.artifacts > 0) {
+                artifactCounter.classList.add('shake');
+                setTimeout(() => {
+                    artifactCounter.classList.remove('shake');
+                }, 500);
+            }
+            
+            // Изменение цвета при приближении к победе
+            if (player.artifacts >= 5) {
+                artifactCounter.style.borderColor = '#b19cd9';
+                artifactCounter.style.boxShadow = '0 0 15px rgba(177, 156, 217, 0.7)';
+            } else {
+                artifactCounter.style.borderColor = '#3d2a5f';
+                artifactCounter.style.boxShadow = '0 0 10px rgba(177, 156, 217, 0.5)';
+            }
         }
         
         // Смена комнаты
@@ -1823,7 +1931,6 @@
                 )) {
                     artifact.collected = true;
                     player.artifacts++;
-                    artifactCountElement.textContent = player.artifacts;
                     
                     if (soundEnabled) {
                         artifactSound.currentTime = 0;
@@ -1834,6 +1941,9 @@
                     
                     player.fear = Math.max(0, player.fear - 15);
                     updateFearBar();
+                    
+                    // Обновляем счетчик артефактов
+                    updateArtifactCounter();
                     
                     // Обновляем мини-карту
                     updateMiniMap();
@@ -2361,6 +2471,7 @@
             document.getElementById('telekenesis-label').style.display = 'none';
             document.getElementById('room-indicator').style.display = 'none';
             document.getElementById('mini-map').style.display = 'none';
+            document.getElementById('artifact-counter').style.display = 'none';
             
             // Анимируем появление элементов
             setTimeout(() => {
@@ -2407,7 +2518,6 @@
                 visitedRooms: new Set()
             };
             
-            artifactCountElement.textContent = '0';
             healthFillElement.style.width = '100%';
             fearFillElement.style.width = '0%';
             telekenesisFillElement.style.width = '0%';
@@ -2423,6 +2533,10 @@
             gameRunning = true;
             restartBtn.style.display = 'none';
             restartBtn.textContent = "РЕСТАРТ (R)";
+            
+            // Показываем счетчик артефактов
+            artifactCounter.style.display = 'flex';
+            updateArtifactCounter();
             
             updateInventory();
             
