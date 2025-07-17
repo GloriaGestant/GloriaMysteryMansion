@@ -859,6 +859,7 @@
         
         let artifacts = [];
         let enemies = [];
+        let furniture = []; // Массив для мебели
         let lastEnemySpawn = 0;
         let gameTime = 0;
         let messageTimeout;
@@ -882,7 +883,8 @@
             ArrowRight: false,
             KeyT: false,
             KeyP: false,
-            KeyM: false
+            KeyM: false,
+            Space: false // Добавляем пробел для активации способностей
         };
         
         // Джойстик переменные (для мобильных)
@@ -953,17 +955,63 @@
             }
         ];
         
+        // Типы мебели для разных комнат
+        const furnitureTypes = {
+            "Прихожая": [
+                { type: "coatrack", width: 20, height: 60, color: '#3a2a5a' },
+                { type: "table", width: 60, height: 20, color: '#4a3a6a' },
+                { type: "mirror", width: 40, height: 80, color: '#5a4a7a' }
+            ],
+            "Гостиная": [
+                { type: "sofa", width: 100, height: 30, color: '#5a3a5a' },
+                { type: "armchair", width: 50, height: 50, color: '#4a2a4a' },
+                { type: "coffee_table", width: 70, height: 40, color: '#3a1a3a' }
+            ],
+            "Библиотека": [
+                { type: "bookshelf", width: 30, height: 80, color: '#2a3a5a' },
+                { type: "reading_chair", width: 40, height: 40, color: '#3a4a6a' },
+                { type: "desk", width: 80, height: 30, color: '#4a5a7a' }
+            ],
+            "Столовая": [
+                { type: "dining_table", width: 120, height: 50, color: '#5a4a3a' },
+                { type: "chair", width: 25, height: 25, color: '#4a3a2a', count: 6 },
+                { type: "cabinet", width: 40, height: 70, color: '#3a2a1a' }
+            ],
+            "Кухня": [
+                { type: "kitchen_table", width: 80, height: 40, color: '#4a5a3a' },
+                { type: "stove", width: 50, height: 30, color: '#3a4a2a' },
+                { type: "fridge", width: 40, height: 70, color: '#2a3a1a' }
+            ],
+            "Кабинет": [
+                { type: "desk", width: 90, height: 40, color: '#3a5a4a' },
+                { type: "office_chair", width: 30, height: 30, color: '#2a4a3a' },
+                { type: "filing_cabinet", width: 30, height: 60, color: '#1a3a2a' }
+            ],
+            "Детская": [
+                { type: "crib", width: 70, height: 50, color: '#5a3a4a' },
+                { type: "toy_chest", width: 60, height: 30, color: '#4a2a3a' },
+                { type: "rocking_horse", width: 40, height: 40, color: '#3a1a2a' }
+            ],
+            "Чердак": [
+                { type: "trunk", width: 60, height: 30, color: '#3a4a5a' },
+                { type: "old_chair", width: 30, height: 40, color: '#2a3a4a' },
+                { type: "boxes", width: 50, height: 30, color: '#1a2a3a' }
+            ]
+        };
+        
         // Генерация комнат
         function generateRooms() {
             rooms = [];
             for (let i = 0; i < 8; i++) {
+                const roomName = roomNames[i];
                 rooms.push({
-                    name: roomNames[i],
+                    name: roomName,
                     width: canvas.width,
                     height: canvas.height,
                     description: roomDescriptions[i],
                     artifacts: [],
-                    enemies: []
+                    enemies: [],
+                    furniture: generateFurnitureForRoom(roomName)
                 });
             }
             
@@ -985,9 +1033,59 @@
             player.visitedRooms.add(currentRoom);
             artifacts = rooms[currentRoom].artifacts;
             enemies = rooms[currentRoom].enemies;
+            furniture = rooms[currentRoom].furniture;
             updateRoomIndicator();
             updateMiniMap();
             showMessage(rooms[currentRoom].description);
+        }
+        
+        // Генерация мебели для комнаты
+        function generateFurnitureForRoom(roomName) {
+            const furnitureList = [];
+            const roomFurnitureTypes = furnitureTypes[roomName];
+            
+            for (const type of roomFurnitureTypes) {
+                const count = type.count || 1;
+                
+                for (let i = 0; i < count; i++) {
+                    let x, y;
+                    let validPosition = false;
+                    let attempts = 0;
+                    
+                    // Пытаемся найти валидную позицию для мебели
+                    while (!validPosition && attempts < 50) {
+                        x = Math.floor(Math.random() * (canvas.width - type.width - 100)) + 50;
+                        y = Math.floor(Math.random() * (canvas.height - type.height - 100)) + 50;
+                        
+                        // Проверяем, не пересекается ли мебель с другой мебелью
+                        validPosition = true;
+                        for (const item of furnitureList) {
+                            if (checkCollision(
+                                x, y, type.width,
+                                item.x, item.y, item.width
+                            )) {
+                                validPosition = false;
+                                break;
+                            }
+                        }
+                        
+                        attempts++;
+                    }
+                    
+                    if (validPosition) {
+                        furnitureList.push({
+                            type: type.type,
+                            x: x,
+                            y: y,
+                            width: type.width,
+                            height: type.height,
+                            color: type.color
+                        });
+                    }
+                }
+            }
+            
+            return furnitureList;
         }
         
         // Обновление индикатора комнаты
@@ -1074,6 +1172,7 @@
             // Обновляем данные комнаты
             artifacts = rooms[currentRoom].artifacts;
             enemies = rooms[currentRoom].enemies;
+            furniture = rooms[currentRoom].furniture;
             
             // Увеличиваем страх при переходе в новую комнату
             player.fear += 10;
@@ -1315,6 +1414,102 @@
             });
         }
         
+        // Отрисовка мебели
+        function drawFurniture() {
+            furniture.forEach(item => {
+                ctx.fillStyle = item.color;
+                
+                switch(item.type) {
+                    case 'coatrack':
+                        // Вешалка для одежды
+                        ctx.fillRect(item.x, item.y, 5, item.height);
+                        ctx.fillRect(item.x - 10, item.y, 25, 5);
+                        break;
+                    
+                    case 'table':
+                        // Стол
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Ножки стола
+                        ctx.fillStyle = '#2a1a3a';
+                        ctx.fillRect(item.x + 5, item.y + item.height, 5, 10);
+                        ctx.fillRect(item.x + item.width - 10, item.y + item.height, 5, 10);
+                        break;
+                    
+                    case 'mirror':
+                        // Зеркало
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Рама зеркала
+                        ctx.strokeStyle = '#b19cd9';
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(item.x, item.y, item.width, item.height);
+                        break;
+                    
+                    case 'sofa':
+                        // Диван
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Подлокотники
+                        ctx.fillRect(item.x - 10, item.y, 10, item.height);
+                        ctx.fillRect(item.x + item.width, item.y, 10, item.height);
+                        break;
+                    
+                    case 'armchair':
+                        // Кресло
+                        ctx.beginPath();
+                        ctx.moveTo(item.x, item.y + item.height);
+                        ctx.lineTo(item.x + item.width/2, item.y);
+                        ctx.lineTo(item.x + item.width, item.y + item.height);
+                        ctx.closePath();
+                        ctx.fill();
+                        break;
+                    
+                    case 'bookshelf':
+                        // Книжная полка
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Полки
+                        ctx.strokeStyle = '#2a1a3a';
+                        ctx.lineWidth = 2;
+                        for (let i = 1; i < 4; i++) {
+                            ctx.beginPath();
+                            ctx.moveTo(item.x, item.y + i * (item.height / 4));
+                            ctx.lineTo(item.x + item.width, item.y + i * (item.height / 4));
+                            ctx.stroke();
+                        }
+                        break;
+                    
+                    case 'dining_table':
+                        // Обеденный стол
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Ножки стола
+                        ctx.fillStyle = '#2a1a3a';
+                        for (let i = 0; i < 4; i++) {
+                            const legX = item.x + (i % 2 === 0 ? 10 : item.width - 15);
+                            const legY = item.y + (i < 2 ? 10 : item.height - 10);
+                            ctx.fillRect(legX, legY, 5, 15);
+                        }
+                        break;
+                    
+                    case 'chair':
+                        // Стул
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Спинка
+                        ctx.fillRect(item.x - 5, item.y, 5, item.height);
+                        break;
+                    
+                    case 'crib':
+                        // Детская кроватка
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                        // Боковые стенки
+                        ctx.fillRect(item.x - 5, item.y, 5, item.height);
+                        ctx.fillRect(item.x + item.width, item.y, 5, item.height);
+                        break;
+                    
+                    default:
+                        // Стандартный прямоугольник для других типов мебели
+                        ctx.fillRect(item.x, item.y, item.width, item.height);
+                }
+            });
+        }
+        
         // Обновление игры
         function update() {
             if (!gameRunning) return;
@@ -1361,10 +1556,11 @@
                     changeRoom('right');
                 }
                 
-                // Использование телекинеза (T)
-                if (keys.KeyT && player.telekinesis >= 30 && Date.now() - player.lastTelekinesisUse > player.telekinesisCooldown) {
+                // Использование телекинеза (T или пробел)
+                if ((keys.KeyT || keys.Space) && player.telekinesis >= 30 && Date.now() - player.lastTelekinesisUse > player.telekinesisCooldown) {
                     useTelekinesis();
                     keys.KeyT = false;
+                    keys.Space = false;
                 }
                 
                 // Использование портала (P)
@@ -1578,6 +1774,9 @@
             ctx.strokeStyle = '#3a2a5a';
             ctx.lineWidth = 3;
             ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+            
+            // Отрисовка мебели
+            drawFurniture();
             
             // Отрисовка дверей
             ctx.fillStyle = '#2a1a3a';
@@ -1961,7 +2160,7 @@
                 abilityCooldowns.style.display = 'flex';
                 
                 // Обновляем информацию об управлении
-                controlsInfo.textContent = "Управление: Стрелки - движение, T - телекинез, P - портал, M - мини-карта, R - перезапуск";
+                controlsInfo.textContent = "Управление: Стрелки - движение, Пробел/T - телекинез, P - портал, M - мини-карта, R - перезапуск";
             }
             
             // Настраиваем переключение звука
